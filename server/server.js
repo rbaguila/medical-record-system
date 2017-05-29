@@ -62,6 +62,37 @@ router.route('/users')
     });
  });
 
+ //Adding a route to a specific user based on the database ID
+router.route('/user/:user_id')
+//The put method gives us the chance to update our user based on 
+//the ID passed to the route
+ .put(function(req, res) {
+    // console.log(req.params)
+    User.findById(req.params.user_id, function(err, user) {
+        if (err)
+        res.send(err);
+        //setting the new username and password to whatever was changed. If 
+        //nothing was changed we will not alter the field.
+        (req.body.username) ? user.username = req.body.username : null;
+        (req.body.password) ? user.password = req.body.password : null;
+        //save user
+        user.save(function(err) {
+            if (err)
+            res.send(err);
+            res.json({ message: 'User has been updated' });
+        });
+    });
+ })
+ //delete method for removing a user from our database
+ .delete(function(req, res) {
+    //selects the user by its ID, then removes it.
+    User.remove({ _id: req.params.user_id }, function(err, user) {
+        if (err)
+        res.send(err);
+        res.json({ message: 'User has been deleted' })
+    })
+ });
+
 //Use our router configuration when we call /api
 app.use('/api', router);
 
