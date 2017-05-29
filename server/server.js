@@ -2,6 +2,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var User = require('../model/users');
 
 //create app instance
 var app = express();
@@ -32,6 +33,34 @@ app.use(function(req, res, next) {
 router.get('/', function(req, res) {
  res.json({ message: 'API Initialized!'});
 });
+
+//adding the /users route to our /api router
+router.route('/users')
+ //retrieve all users from the database
+ .get(function(req, res) {
+ //looks at our User Schema
+ User.find(function(err, users) {
+    if (err)
+    res.send(err);
+    //responds with a json object of our database users.
+    res.json(users)
+ });
+ })
+ //post new user to the database
+ .post(function(req, res) {
+    console.log('Received request: ')
+    console.log(req.body)
+    var user = new User();
+    //body parser lets us use the req.body
+    user.username = req.body.username;
+    user.password = req.body.password;
+
+    user.save(function(err) {
+        if (err)
+        res.send(err);
+        res.json({ message: 'User successfully added!' });
+    });
+ });
 
 //Use our router configuration when we call /api
 app.use('/api', router);
