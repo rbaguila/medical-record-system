@@ -2,6 +2,7 @@ const user = require(__dirname + '/controller/user')
 
 module.exports = (router) => {
 
+    //User
     //Get functions
     router.get('/', user.initializeAPI);
     router.get('/users', user.viewUsers);
