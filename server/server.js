@@ -45,7 +45,10 @@ router.route('/users')
     //responds with a json object of our database users.
     res.json(users)
  });
- })
+})
+
+
+
  //post new user to the database
  .post(function(req, res) {
     console.log('Received request: ')
@@ -54,6 +57,24 @@ router.route('/users')
     //body parser lets us use the req.body
     user.username = req.body.username;
     user.password = req.body.password;
+    user.firstName = req.body.firstName;
+    user.middleName = req.body.middleName;
+    user.lastName = req.body.lastName;
+    
+    user.officeAddress = req.body.officeAddress;
+    user.homeAddress = req.body.homeAddress;
+    user.civilStatus = req.body.civilStatus;
+    user.occupation = req.body.occupation;
+    user.age = req.body.age;
+    user.sex = req.body.sex;
+    
+    //Second bracket
+    user.birthDate = req.body.birthDate;
+    user.refferedBy = req.body.refferedBy;
+    user.contactNumber = req.body.contactNumber;
+
+    user.dateRegistered = req.body.dateRegistered;
+
 
     user.save(function(err) {
         if (err)
@@ -75,6 +96,22 @@ router.route('/user/:user_id')
         //nothing was changed we will not alter the field.
         (req.body.username) ? user.username = req.body.username : null;
         (req.body.password) ? user.password = req.body.password : null;
+        (req.body.firstName) ? user.firstName = req.body.firstName : null;
+        (req.body.middleName) ? user.middleName = req.body.middleName : null;
+        (req.body.lastName) ? user.lastName = req.body.lastName : null;
+
+        (req.body.officeAddress) ? user.officeAddress = req.body.officeAddress : null;
+        (req.body.homeAddress) ? user.homeAddress = req.body.homeAddress : null;
+        (req.body.civilStatus) ? user.civilStatus = req.body.civilStatus : null;
+        (req.body.occupation) ? user.occupation = req.body.occupation : null;
+        (req.body.age) ? user.age = req.body.age : null;
+        (req.body.sex) ? user.sex = req.body.sex : null;
+
+        (req.body.birthDate) ? user.birthDate = req.body.birthDate : null;
+        (req.body.refferedBy) ? user.refferedBy = req.body.refferedBy : null;
+        (req.body.contactNumber) ? user.contactNumber = req.body.contactNumber : null;
+
+
         //save user
         user.save(function(err) {
             if (err)
@@ -83,6 +120,9 @@ router.route('/user/:user_id')
         });
     });
  })
+
+
+
  //delete method for removing a user from our database
  .delete(function(req, res) {
     //selects the user by its ID, then removes it.

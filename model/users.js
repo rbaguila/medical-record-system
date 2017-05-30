@@ -11,11 +11,9 @@ var UsersSchema = new Schema({
  password: String,
  
  //First bracket
- name: [{
-	firstName: String,
-	middleName: String,
-	lastName: String,
- }],
+ firstName: String,
+ middleName: String,
+ lastName: String,
  
  officeAddress: String,
  homeAddress: String,
