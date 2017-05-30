@@ -14,7 +14,9 @@
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
-    "react-scripts": "1.0.7"
+    "mocha": "^3.4.2",
+    "react-scripts": "1.0.7",
+    "supertest": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
