@@ -1,5 +1,5 @@
 var assert = require('assert');
-var supertest = require('supertest');
+var request = require('supertest');
 var express = require('express');
 
 describe('Test server responses', function() {
@@ -8,7 +8,7 @@ describe('Test server responses', function() {
     it('Homepage responds with "API initialized!"', function(done) {
         request(url)
             .get('/')
-            .expect('API Initialized!')
+            .expect({ message: 'API Initialized!'})
             .expect(200, done);
     });
 
