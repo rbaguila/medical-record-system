@@ -15,8 +15,13 @@ var UsersSchema = new Schema({
  middleName: String,
  lastName: String,
  
- officeAddress: String,
- homeAddress: String,
+ officeAddress: [],
+
+ ptrNumber: Number,
+ licenseNumber: Number,
+ contactNumber: Number,
+
+ timeSlots: String,
  civilStatus: String,
  occupation: String,
  age: Number,
@@ -25,12 +30,14 @@ var UsersSchema = new Schema({
  //Second bracket
  birthDate: Date,
  refferedBy: String,
- contactNumber: Number,
+ 
 
  dateRegistered: Date,
 
-
+ //Kapg doctor
+ //ptrnumber, licensenumber
 
 });
+
 //export our module to use in server.js
 module.exports = mongoose.model('User', UsersSchema);
