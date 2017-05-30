@@ -21,7 +21,7 @@ exports.addUser = (req, res) => {
     console.log(req.body);
 
     var user = new User();
-
+  
     //First bracket
     user.username = req.body.username;
     user.password = req.body.password;
@@ -29,8 +29,16 @@ exports.addUser = (req, res) => {
     user.middleName = req.body.middleName;
     user.lastName = req.body.lastName;
     
-    user.officeAddress = req.body.officeAddress;
-    user.homeAddress = req.body.homeAddress;
+   //console.log("Room Number: " +req.body.roomNumber);
+
+    user.officeAddress.push({"roomNumber": req.body.roomNumber});
+    user.officeAddress.push({"mainAddress": req.body.mainAddress});
+
+
+    user.ptrNumber = req.body.ptrNumber;
+    user.licenseNumber = req.body.licenseNumber;
+
+
     user.civilStatus = req.body.civilStatus;
     user.occupation = req.body.occupation;
     user.age = req.body.age;
