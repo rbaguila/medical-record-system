@@ -1,10 +1,5 @@
 var User = require('../../model/users');
 
-//Initializes API
-exports.initializeAPI = (req, res) => {
-    res.json({ message: 'API Initialized!'});
-};
-
 //Shows all users
 exports.viewUsers = (req, res) => {
     User.find(function(err, users){
@@ -50,7 +45,7 @@ exports.addUser = (req, res) => {
     user.contactNumber = req.body.contactNumber;
 
     user.dateRegistered = req.body.dateRegistered;
-
+ 
     user.save(function(err) {
         if (err)
         res.send(err);
