@@ -5,7 +5,9 @@ var Schema = mongoose.Schema;
 
 var PatientSchema = new Schema({
     
-    name: String,
+    firstName: String,
+    middleName: String,
+    lastName: String,
     age: Number,
     sex: String,
     civilStatus: String,
@@ -17,8 +19,7 @@ var PatientSchema = new Schema({
     
     contactNumber: Number,
     dateRegistered: Date,
-
-
+    
 });
 
 module.exports = mongoose.model('Patient', PatientSchema);
