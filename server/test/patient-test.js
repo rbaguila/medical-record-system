@@ -5,52 +5,31 @@ var express = require('express');
 
 chai.should();
 
-//For users
-var User = require('../../model/users');
-
-var sampleInput = {
-    username: String, 
-    password: String, 
-    firstName: String, 
-    middleName: String, 
+const sampleInput = {
+    firstName: String,
+    middleName: String,
     lastName: String,
-    
-    ptrNumber: Number,
-    licenseNumber: Number,
-    contactNumber: Number,
-
-    timeSlots: String,
+    age: Number,
+    sex: String,
     civilStatus: String,
     occupation: String,
 
-    age: Number,
-    sex: String,
-
+    homeAddress: String,
     birthDate: Date,
     referredBy: String,
 
+    contactNumber: Number,
     dateRegistered: Date
+    
 }
 
-trinketAge = 21;
+var trinketAge = 21;
 
+describe('Patient API responses', function(){
 
-describe('User API responses', function() {
     var url = 'http://localhost:3001';
-   
-    //Credentials checker
-    //Username
-    it('Username should be a String', function(done){
-        sampleInput.username.should.be.equal(String);
-        done();
-    })
 
-    //Password
-    it('Password should be a String', function(done){
-        sampleInput.password.should.be.equal(String);
-        done();
-    })
-
+    //Credentials
     //firstName
     it('First name should be a String', function(done){
         sampleInput.firstName.should.be.equal(String);
@@ -80,31 +59,13 @@ describe('User API responses', function() {
         done();
     })
 
-    //ptrNumber
-    it('ptrNumber should be a number', function(done){
-        sampleInput.ptrNumber.should.be.equal(Number);
-        done();
-    })
-
-    //licenceNumber
-    it('licenseNumber should be a number', function(done){
-        sampleInput.licenseNumber.should.be.equal(Number);
-        done();
-    })
-
-    //contactNumber
+     //contactNumber
     it('contactNumber should be a number', function(done){
         sampleInput.contactNumber.should.be.equal(Number);
         done();
     })
 
-    //timeSlots
-    it('timeSlots should be a String', function(done){
-        sampleInput.timeSlots.should.be.equal(String);
-        done()
-    });
-
-    //civilStatus
+     //civilStatus
     it('civilStatus should be a String', function(done){
         sampleInput.civilStatus.should.be.equal(String);
         done();
@@ -113,6 +74,12 @@ describe('User API responses', function() {
     //occupation
     it('occupation should be a String', function(done){
         sampleInput.occupation.should.be.equal(String);
+        done();
+    })
+
+    //homeAddress
+    it('homeAddress should be a String', function(done){
+        sampleInput.homeAddress.should.be.equal(String);
         done();
     })
 
@@ -140,29 +107,29 @@ describe('User API responses', function() {
         done();
     })
 
-    //Get
-    it('/api/users should return list of json object of users', function(done){
+
+     it('/api/patients should return list of json object of patients', function(done){
         request(url)
-            .get('/api/users')
+            .get('/api/patients')
             .expect('Content-type', 'application/json; charset=utf-8', done)
     });
 
 
     //Post
-    it('/api/users should accept complete variables', function(done) {
+    it('/api/patients should accept complete variables', function(done) {
         request(url)
-            .post('/api/users')
+            .post('/api/patients')
             .send(sampleInput)
-            .expect({message: 'User successfully added!'}, done);
+            .expect({message: 'Patient successfully added!'}, done);
     });
 
 
     it('Generated ID should be equal to stored ID', function (done) {
         request(url)
-            .post('/api/users')
+            .post('/api/patients')
             .send({
-                username: sampleInput.username,
-                password: sampleInput.password
+                firstName: sampleInput.firstName,
+                lastName: sampleInput.lastName
             })
             .expect(200)
             .end(function (err, res) {
@@ -180,7 +147,7 @@ describe('User API responses', function() {
     //Delete
     it('Deleting an invalid ID wont do anything', function(done){
         request(url)
-            .delete('/api/users/' +sampleInput.id)
+            .delete('/api/patients/' +sampleInput.id)
             .expect(404)
             .end(function(err){
                 if(err){
@@ -194,7 +161,7 @@ describe('User API responses', function() {
     //Edit
     it('Editing an invalid ID wont do anything', function(done){
         request(url)
-            .put('/api/users/' +sampleInput.id)
+            .put('/api/patients/' +sampleInput.id)
             .expect(404)
             .end(function(err){
                 if(err){
@@ -204,4 +171,5 @@ describe('User API responses', function() {
                 done();
             });
     })
-});
+ 
+})

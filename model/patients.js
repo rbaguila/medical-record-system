@@ -14,8 +14,8 @@ var PatientSchema = new Schema({
     occupation: String,
 
     homeAddress: String,
-    birthdate: Date,
-    RefferedBy: String,
+    birthDate: Date,
+    refferedBy: String,
     
     contactNumber: Number,
     dateRegistered: Date,
