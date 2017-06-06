@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
 
-const DEFAULT_QUERY = 'redux';
-const PATH_BASE = 'https://hn.algolia.com/api/v1';
-const PATH_SEARCH = '/search';
-const PARAM_SEARCH = 'query=';
-
-const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
-const sampleAPI = `http://localhost:3001/api/users/`;
-console.log(url);
-console.log(sampleAPI);
+// We can use it later to make fetching of data more dynamic 
+// const DEFAULT_QUERY = 'redux';
+// const PATH_BASE = 'https://hn.algolia.com/api/v1';
+// const PATH_SEARCH = '/search';
+// const PARAM_SEARCH = 'query=';
+// const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
+const medicineAPI = `http://localhost:3001/api/medicines/`;
 
 function isSearched(searchTerm) {
   return function(item) {
     return !searchTerm ||
-      item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.author.toLowerCase().includes(searchTerm.toLowerCase());
+      item.genericName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.brandName.toLowerCase().includes(searchTerm.toLowerCase());
   }
 }
 
@@ -24,7 +22,7 @@ class App extends Component {
     super(props);
     this.state = {
       result: null,
-      searchTerm: DEFAULT_QUERY,
+      searchTerm: '',
     };
     this.setSearchTopstories = this.setSearchTopstories.bind(this);
     this.fetchSearchTopstories = this.fetchSearchTopstories.bind(this);
@@ -36,7 +34,8 @@ class App extends Component {
   }
 
   fetchSearchTopstories(searchTerm) {
-    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
+    //convert fetching of data to axios command
+    fetch(medicineAPI)
     .then(response => response.json())
     .then(result => this.setSearchTopstories(result));
   }
@@ -46,12 +45,11 @@ class App extends Component {
     this.fetchSearchTopstories(searchTerm);
   }
 
+  //make this function work then onert in delete function
   onDismiss(id) {
     const isNotId = item => item.objectID !== id;
-    const updatedHits = this.state.result.hits.filter(isNotId);
-    this.setState({
-      result: { ...this.state.result, hits: updatedHits }
-    });
+    const updatedList = this.state.list.filter(isNotId);
+    this.setState({ list: updatedList });
   }
 
   onSearchChange(event) {
@@ -72,7 +70,7 @@ class App extends Component {
           </Search>
         </div>
         <Table 
-          list={result.hits}
+          list={result}
           pattern={searchTerm}
           onDismiss={this.onDismiss}
         />
@@ -106,12 +104,10 @@ const Table = ({ list, pattern, onDismiss}) =>
   <div className="table">
       { list.filter(isSearched(pattern)).map(item =>
         <div key={item.objectID} className="table-row">
-          <span style={{ width: '40%' }}>
-            <a href={item.url}>{item.title}</a>
-          </span>
-          <span style={{ width: '30%' }}>{item.author}</span>
-          <span style={{ width: '10%' }}>{item.num_comments}</span>
-          <span style={{ width: '10%' }}>{item.points}</span>
+          <span style={{ width: '30%' }}>{item.genericName}</span>
+          <span style={{ width: '30%' }}>{item.brandName}</span>
+          <span style={{ width: '10%' }}>{item.dosage}</span>
+          
           <span style={{ width: '10%' }}>
           <Button 
             onClick={() => onDismiss(item.objectID)}
