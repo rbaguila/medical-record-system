@@ -12,6 +12,16 @@ exports.viewPatients = (req, res) => {
     });
 };
 
+exports.viewPatient = (req, res) => {
+    Patient.findById(req.params.patient_id, function(err, patient){
+        if(err){
+            res.send(err)
+        }else{
+            res.json(patient);
+        }
+    });
+};
+
 //Adds a patient
 exports.addPatient = (req, res) => {
     console.log("Received request");

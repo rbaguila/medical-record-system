@@ -10,6 +10,16 @@ exports.viewUsers = (req, res) => {
     });
 };
 
+exports.viewUser = (req, res) => {
+    User.findById(req.params.user_id, function(err, user){
+        if(err){
+            res.send(err)
+        }else{
+            res.json(user);
+        }
+    });
+};
+
 //Adds a user
 exports.addUser = (req, res) => {
     console.log("Received request");

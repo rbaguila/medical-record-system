@@ -7,29 +7,9 @@ const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
 
 const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
+const sampleAPI = `http://localhost:3001/api/users/`;
 console.log(url);
-
-
-const list = [
-  {
-    title: 'React',
-    url: 'https://samplereact',
-    author: 'Jordan Walk',
-    num_comments: 3,
-    points: 4,
-    objectID: 0,
-  },
-  {
-    title: 'Redux',
-    url: 'https://sampleredux',
-    author: 'Dan Abramov',
-    num_comments: 2,
-    points: 5,
-    objectID: 1,
-
-  }
-];
-
+console.log(sampleAPI);
 
 function isSearched(searchTerm){
   return function(list){
@@ -54,6 +34,7 @@ class App extends Component {
     this.setSearchTopstories = this.setSearchTopstories.bind(this);
     this.fetchSearchTopstories = this.fetchSearchTopstories.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
 
   }
   
@@ -77,6 +58,14 @@ class App extends Component {
     this.setState({ searchTerm: event.target.value });
   }
 
+  onDismiss(id){
+    const isNotId = item => item.objectID !== id;
+    const updatedHits = this.state.result.hits.filter(isNotId);
+    this.setState({
+      result: Object.assign({}, this.state.result, {hits: updatedHits})
+    });
+  }
+
   render() {
     const {searchTerm, result } = this.state
 
@@ -88,7 +77,6 @@ class App extends Component {
           <div className="interactions">
 
             <Search 
-              value = {searchTerm}
               onChange = {this.onSearchChange}
             >
 
@@ -147,6 +135,8 @@ class Table extends Component{
             <span> {item.author} </span>
             <span> {item.num_comments} </span>
             <span> {item.points} </span>
+            <span> {item.objectID} </span>
+            
           </div>
         )}
       </div>
