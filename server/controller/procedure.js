@@ -12,6 +12,16 @@ exports.viewProcedures = (req, res) => {
     });
 };
 
+exports.viewProcedure = (req, res) => {
+    Procedure.findById(req.params.procedure_id, function(err, procedure){
+        if(err){
+            res.send(err)
+        }else{
+            res.json(procedure);
+        }
+    });
+};
+
 //Adds a medicine
 exports.addProcedure = (req, res) => {
     console.log("Received request");

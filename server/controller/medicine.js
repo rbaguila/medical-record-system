@@ -12,6 +12,16 @@ exports.viewMedicines = (req, res) => {
     });
 };
 
+exports.viewMedicine = (req, res) => {
+    Medicine.findById(req.params.medicine_id, function(err, medicine){
+        if(err){
+            res.send(err)
+        }else{
+            res.json(medicine);
+        }
+    });
+};
+
 //Adds a medicine
 exports.addMedicine = (req, res) => {
     console.log("Received request");
