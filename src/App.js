@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './App.css';
 
 // We can use it later to make fetching of data more dynamic 
@@ -28,6 +29,8 @@ class App extends Component {
     this.fetchSearchTopstories = this.fetchSearchTopstories.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
+    
+    this.addMed = this.addMed.bind(this);
   }
   setSearchTopstories(result) {
     this.setState({ result });
@@ -46,6 +49,7 @@ class App extends Component {
   }
 
   //make this function work then onert in delete function
+  //Dito ka magfetch
   onDismiss(id) {
     const isNotId = item => item.objectID !== id;
     const updatedList = this.state.list.filter(isNotId);
@@ -54,6 +58,37 @@ class App extends Component {
 
   onSearchChange(event) {
     this.setState({ searchTerm: event.target.value });
+  }
+
+  addMed(){
+    
+    let brandName = document.getElementById("brandField").value;
+    let genericName = document.getElementById("genericField").value;
+    let dosage = document.getElementById("dosageField").value;
+
+    console.log(brandName, genericName, dosage);
+
+    if(brandName === '' || genericName === '' || dosage === ''){
+      console.log("Field cannot be empty!");
+    }else{
+
+
+      fetch(medicineAPI, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          brandName: brandName,
+          genericName: genericName,
+          dosage: dosage
+        })
+      })
+
+      //Reloads the window
+      window.location.reload();    
+    }
   }
 
   render() {
@@ -69,6 +104,37 @@ class App extends Component {
           Search
           </Search>
         </div>
+
+        
+        <Field
+          name="genericField"
+        >
+        Generic Name
+        </Field>
+
+        <Field
+          name="brandField"
+        >
+        Brand Name
+        </Field>
+
+        <Field 
+         name="dosageField"
+        >
+        Dosage
+        </Field>
+
+        <br />
+
+
+        <Button
+            onClick= {() => this.addMed()}
+            className="sample-button"
+          >
+            Add Medicine
+          </Button>
+
+
         <Table 
           list={result}
           pattern={searchTerm}
@@ -98,9 +164,19 @@ const Button = ({onClick, className = '', children}) =>
   {children}
   </button>
 
+const Field = ({name, children}) =>
+  <form>
+    <input
+      id={name}
+      type="text"
+      placeholder = {children}
+      />
+  </form>
+
 
 
 const Table = ({ list, pattern, onDismiss}) =>
+
   <div className="table">
       { list.filter(isSearched(pattern)).map(item =>
         <div key={item.objectID} className="table-row">

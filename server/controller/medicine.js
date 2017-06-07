@@ -52,7 +52,7 @@ exports.editMedicine = (req, res) =>{
             (req.body.dosage) ? medicine.dosage = req.body.dosage : null;
         }
         
-        //Saves the Patient
+        //Saves the Medicine
         medicine.save(function(err) {
             if (err)
             res.send(err);
@@ -61,13 +61,13 @@ exports.editMedicine = (req, res) =>{
     });
 };
 
-//Deletes a Patient
+//Deletes a Medicine
 exports.deleteMedicine = (req, res) =>{
     Medicine.remove({ _id: req.params.medicine_id }, function(err, medicine) {
         if (err){
             res.send(err);
         }else{
-             res.json({ message: 'Patient has been deleted' })
+             res.json({ message: 'Medicine has been deleted' })
         }
     });
 }
