@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 
+import {Field} from './importables';
+import {Table} from './importables';
+import {Search} from './importables';
+import {Button} from './importables';
+
+
 // We can use it later to make fetching of data more dynamic 
 // const DEFAULT_QUERY = 'redux';
 // const PATH_BASE = 'https://hn.algolia.com/api/v1';
@@ -9,14 +15,10 @@ import './App.css';
 // const PARAM_SEARCH = 'query=';
 // const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 const medicineAPI = `http://localhost:3001/api/medicines/`;
-
-function isSearched(searchTerm) {
-  return function(item) {
-    return !searchTerm ||
-      item.genericName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.brandName.toLowerCase().includes(searchTerm.toLowerCase());
-  }
-}
+let Editid;
+let newGen;
+let newBrand;
+let newDosage;
 
 class App extends Component {
   constructor(props) {
@@ -29,9 +31,12 @@ class App extends Component {
     this.fetchSearchTopstories = this.fetchSearchTopstories.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
-    
+    this.editItems = this.editItems.bind(this);
     this.addMed = this.addMed.bind(this);
+    this.editMed = this.editMed.bind(this);
   }
+
+  
   setSearchTopstories(result) {
     this.setState({ result });
   }
@@ -51,9 +56,8 @@ class App extends Component {
   //make this function work then onert in delete function
   //Dito ka magfetch
   onDismiss(id) {
-    const isNotId = item => item.objectID !== id;
-    const updatedList = this.state.list.filter(isNotId);
-    this.setState({ list: updatedList });
+    axios.delete(`http://localhost:3001/api/medicine/` + id);
+    window.location.reload();
   }
 
   onSearchChange(event) {
@@ -71,25 +75,53 @@ class App extends Component {
     if(brandName === '' || genericName === '' || dosage === ''){
       console.log("Field cannot be empty!");
     }else{
+      axios.post(medicineAPI, {
+        brandName: brandName,
+        genericName: genericName,
+        dosage: dosage
+      }).then(function(response){
+        console.log(response);
+      }).catch(function(error){
+        console.log(error);
+      });
 
-
-      fetch(medicineAPI, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          brandName: brandName,
-          genericName: genericName,
-          dosage: dosage
-        })
-      })
-
-      //Reloads the window
-      window.location.reload();    
+      window.location.reload();
     }
   }
+
+  editItems(item){
+    newGen = document.getElementById("newGeneric");
+    newBrand = document.getElementById("newBrand");
+    newDosage = document.getElementById("newDosage");
+
+    newGen.value = item.genericName;
+    newBrand.value = item.brandName;
+    newDosage.value = item.dosage;
+
+    Editid = item._id;
+  }
+
+  editMed(Editid){
+    console.log(Editid);
+
+    let newGen2 = document.getElementById("newGeneric").value;
+    let newBrand2 = document.getElementById("newBrand").value;
+    let newDosage2 = document.getElementById("newDosage").value;
+
+
+    axios.put(`http://localhost:3001/api/medicine/` + Editid,{
+      genericName: newGen2,
+      brandName: newBrand2,
+      dosage: newDosage2
+    }).then(function(response){
+      console.log(response);
+    }).then(function(error){
+      console.log(error);
+    })
+
+    window.location.reload();
+  }
+
 
   render() {
     const { searchTerm, result } = this.state;
@@ -130,71 +162,51 @@ class App extends Component {
         <Button
             onClick= {() => this.addMed()}
             className="sample-button"
+            bsStyle="primary"
           >
             Add Medicine
           </Button>
 
+          <Table 
+            list={result}
+            pattern={searchTerm}
+            onDismiss={this.onDismiss}
+            editItems={this.editItems}
+          />
 
-        <Table 
-          list={result}
-          pattern={searchTerm}
-          onDismiss={this.onDismiss}
-        />
+
+          <Field
+            name="newGeneric"
+          >
+            New Generic Name
+          </Field>
+
+          <Field
+            name="newBrand"
+          >
+            New Brand Name
+          </Field>
+
+          <Field
+            name="newDosage"
+          >
+            Enter new dosage
+          </Field>
+
+          <br />
+          <Button
+            onClick ={() => this.editMed(Editid)}
+            className="sample-button"
+          >
+            Edit medicine
+          </Button>
+
+
 
       </div>
     );
   }
 }
-
-const Search = ({ value, onChange, children }) =>
-  <form>
-    {children} <input
-      type="text"
-      value={value}
-      onChange={onChange}
-    />
-  </form>
-
-const Button = ({onClick, className = '', children}) =>
-  <button
-    onClick={onClick}
-    className={className}
-    type="button"
-  >
-  {children}
-  </button>
-
-const Field = ({name, children}) =>
-  <form>
-    <input
-      id={name}
-      type="text"
-      placeholder = {children}
-      />
-  </form>
-
-
-
-const Table = ({ list, pattern, onDismiss}) =>
-
-  <div className="table">
-      { list.filter(isSearched(pattern)).map(item =>
-        <div key={item.objectID} className="table-row">
-          <span style={{ width: '30%' }}>{item.genericName}</span>
-          <span style={{ width: '30%' }}>{item.brandName}</span>
-          <span style={{ width: '10%' }}>{item.dosage}</span>
-          
-          <span style={{ width: '10%' }}>
-          <Button 
-            onClick={() => onDismiss(item.objectID)}
-            className="button-inline"
-          >
-            Dismiss
-          </Button>
-          </span>
-        </div>
-      )}
-    </div>
 
 
 export default App;
