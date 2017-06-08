@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
+import {isSearched} from './importables';
+import {Field} from './importables';
+import {Table} from './importables';
+import {Search} from './importables';
+import {Button} from './importables';
 
 // We can use it later to make fetching of data more dynamic 
 // const DEFAULT_QUERY = 'redux';
@@ -9,14 +14,6 @@ import './App.css';
 // const PARAM_SEARCH = 'query=';
 // const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 const medicineAPI = `http://localhost:3001/api/medicines/`;
-
-function isSearched(searchTerm) {
-  return function(item) {
-    return !searchTerm ||
-      item.genericName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.brandName.toLowerCase().includes(searchTerm.toLowerCase());
-  }
-}
 
 class App extends Component {
   constructor(props) {
@@ -32,6 +29,8 @@ class App extends Component {
     
     this.addMed = this.addMed.bind(this);
   }
+
+  
   setSearchTopstories(result) {
     this.setState({ result });
   }
@@ -71,23 +70,17 @@ class App extends Component {
     if(brandName === '' || genericName === '' || dosage === ''){
       console.log("Field cannot be empty!");
     }else{
+      axios.post(medicineAPI, {
+        brandName: brandName,
+        genericName: genericName,
+        dosage: dosage
+      }).then(function(response){
+        console.log(response);
+      }).catch(function(error){
+        console.log(error);
+      });
 
-
-      fetch(medicineAPI, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          brandName: brandName,
-          genericName: genericName,
-          dosage: dosage
-        })
-      })
-
-      //Reloads the window
-      window.location.reload();    
+      window.location.reload();
     }
   }
 
@@ -130,6 +123,7 @@ class App extends Component {
         <Button
             onClick= {() => this.addMed()}
             className="sample-button"
+            bsStyle="primary"
           >
             Add Medicine
           </Button>
@@ -145,56 +139,5 @@ class App extends Component {
     );
   }
 }
-
-const Search = ({ value, onChange, children }) =>
-  <form>
-    {children} <input
-      type="text"
-      value={value}
-      onChange={onChange}
-    />
-  </form>
-
-const Button = ({onClick, className = '', children}) =>
-  <button
-    onClick={onClick}
-    className={className}
-    type="button"
-  >
-  {children}
-  </button>
-
-const Field = ({name, children}) =>
-  <form>
-    <input
-      id={name}
-      type="text"
-      placeholder = {children}
-      />
-  </form>
-
-
-
-const Table = ({ list, pattern, onDismiss}) =>
-
-  <div className="table">
-      { list.filter(isSearched(pattern)).map(item =>
-        <div key={item.objectID} className="table-row">
-          <span style={{ width: '30%' }}>{item.genericName}</span>
-          <span style={{ width: '30%' }}>{item.brandName}</span>
-          <span style={{ width: '10%' }}>{item.dosage}</span>
-          
-          <span style={{ width: '10%' }}>
-          <Button 
-            onClick={() => onDismiss(item.objectID)}
-            className="button-inline"
-          >
-            Dismiss
-          </Button>
-          </span>
-        </div>
-      )}
-    </div>
-
 
 export default App;
