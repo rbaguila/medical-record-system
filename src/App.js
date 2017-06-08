@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
-import {isSearched} from './importables';
+
 import {Field} from './importables';
 import {Table} from './importables';
 import {Search} from './importables';
 import {Button} from './importables';
+
 
 // We can use it later to make fetching of data more dynamic 
 // const DEFAULT_QUERY = 'redux';
@@ -14,6 +15,10 @@ import {Button} from './importables';
 // const PARAM_SEARCH = 'query=';
 // const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 const medicineAPI = `http://localhost:3001/api/medicines/`;
+let Editid;
+let newGen;
+let newBrand;
+let newDosage;
 
 class App extends Component {
   constructor(props) {
@@ -26,8 +31,9 @@ class App extends Component {
     this.fetchSearchTopstories = this.fetchSearchTopstories.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
-    
+    this.editItems = this.editItems.bind(this);
     this.addMed = this.addMed.bind(this);
+    this.editMed = this.editMed.bind(this);
   }
 
   
@@ -50,9 +56,8 @@ class App extends Component {
   //make this function work then onert in delete function
   //Dito ka magfetch
   onDismiss(id) {
-    const isNotId = item => item.objectID !== id;
-    const updatedList = this.state.list.filter(isNotId);
-    this.setState({ list: updatedList });
+    axios.delete(`http://localhost:3001/api/medicine/` + id);
+    window.location.reload();
   }
 
   onSearchChange(event) {
@@ -83,6 +88,40 @@ class App extends Component {
       window.location.reload();
     }
   }
+
+  editItems(item){
+    newGen = document.getElementById("newGeneric");
+    newBrand = document.getElementById("newBrand");
+    newDosage = document.getElementById("newDosage");
+
+    newGen.value = item.genericName;
+    newBrand.value = item.brandName;
+    newDosage.value = item.dosage;
+
+    Editid = item._id;
+  }
+
+  editMed(Editid){
+    console.log(Editid);
+
+    let newGen2 = document.getElementById("newGeneric").value;
+    let newBrand2 = document.getElementById("newBrand").value;
+    let newDosage2 = document.getElementById("newDosage").value;
+
+
+    axios.put(`http://localhost:3001/api/medicine/` + Editid,{
+      genericName: newGen2,
+      brandName: newBrand2,
+      dosage: newDosage2
+    }).then(function(response){
+      console.log(response);
+    }).then(function(error){
+      console.log(error);
+    })
+
+    window.location.reload();
+  }
+
 
   render() {
     const { searchTerm, result } = this.state;
@@ -128,16 +167,46 @@ class App extends Component {
             Add Medicine
           </Button>
 
+          <Table 
+            list={result}
+            pattern={searchTerm}
+            onDismiss={this.onDismiss}
+            editItems={this.editItems}
+          />
 
-        <Table 
-          list={result}
-          pattern={searchTerm}
-          onDismiss={this.onDismiss}
-        />
+
+          <Field
+            name="newGeneric"
+          >
+            New Generic Name
+          </Field>
+
+          <Field
+            name="newBrand"
+          >
+            New Brand Name
+          </Field>
+
+          <Field
+            name="newDosage"
+          >
+            Enter new dosage
+          </Field>
+
+          <br />
+          <Button
+            onClick ={() => this.editMed(Editid)}
+            className="sample-button"
+          >
+            Edit medicine
+          </Button>
+
+
 
       </div>
     );
   }
 }
+
 
 export default App;

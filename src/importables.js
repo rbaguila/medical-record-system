@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 export function isSearched(searchTerm) {
   return function(item) {
     return !searchTerm ||
@@ -7,36 +8,6 @@ export function isSearched(searchTerm) {
       item.brandName.toLowerCase().includes(searchTerm.toLowerCase());
   }
 }
-
-export const Field = ({name, children}) =>
-  <form>
-    <input
-      id={name}
-      type="text"
-      placeholder = {children}
-      />
-  </form>
-
-export const Table = ({ list, pattern, onDismiss}) =>
-
-  <div className="table">
-      { list.filter(isSearched(pattern)).map(item =>
-        <div key={item.objectID} className="table-row">
-          <span style={{ width: '30%' }}>{item.genericName}</span>
-          <span style={{ width: '30%' }}>{item.brandName}</span>
-          <span style={{ width: '10%' }}>{item.dosage}</span>
-          
-          <span style={{ width: '10%' }}>
-          <Button 
-            onClick={() => onDismiss(item.objectID)}
-            className="button-inline"
-          >
-            Dismiss
-          </Button>
-          </span>
-        </div>
-      )}
-    </div>
 
 export const Button = ({onClick, className = '', children}) =>
   <button
@@ -56,3 +27,53 @@ export const Search = ({ value, onChange, children }) =>
       onChange={onChange}
     />
   </form>
+
+export const Field = ({name, children}) =>
+  <form>
+    <input
+      id={name}
+      type="text"
+      placeholder = {children}
+      />
+  </form>
+
+export const TextField = ({name, children}) =>
+  <form>
+    <input 
+      type="text"
+      id={name}
+      placeholder={children}
+      disabled="true"
+      />
+  </form>
+
+export const Table = ({ list, pattern, onDismiss, editItems}) =>
+
+  <div className="table">
+      { list.filter(isSearched(pattern)).map(item =>
+        <div key={item.objectID} className="table-row">
+          <span style={{ width: '10%' }}>{item.genericName}</span>
+          <span style={{ width: '10%' }}>{item.brandName}</span>
+          <span style={{ width: '5%' }}>{item.dosage}</span>
+          
+          <span style={{ width: '10%' }}>
+            <Button 
+              onClick={() => onDismiss(item._id)}
+              className="button-inline"
+            >
+              Dismiss
+            </Button>
+          </span>
+
+          <span style={{width: '5%'}}>
+            <Button
+              onClick={() => editItems(item)}
+              className="button-inline"
+            >
+              Edit
+            </Button>
+          </span>
+        </div>
+      )}
+    </div>
+
