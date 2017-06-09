@@ -15,7 +15,7 @@ export class EditModal extends Component{
         super(props);
         //console.log(props.item.genericName)
         this.state = {
-            //Show modal should bet set to false
+            //Show modal should be set to false
             showModal: false,
             item: props.item,
             searchTermGeneric: props.item.genericName,

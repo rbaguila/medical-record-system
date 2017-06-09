@@ -59,7 +59,6 @@ export class AddModal extends Component{
     }
 
     //Dynamic change on button value
-    //Allows your values to be editable
     onSearchChangeGeneric(event) {
         this.setState({ searchTermGeneric: event.target.value });
     }

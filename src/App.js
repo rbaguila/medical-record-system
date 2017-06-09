@@ -17,11 +17,6 @@ import {AddModal} from './AddModal';
 // const PARAM_SEARCH = 'query=';
 // const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 const medicineAPI = `http://localhost:3001/api/medicines/`;
-let Editid;
-
-let newGen;
-let newBrand;
-let newDosage;
 
 class App extends Component {
   
