@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import {EditModal} from './EditModal';
+import {DismissModal} from './DismissModal';
 
 export function isSearched(searchTerm) {
   return function(item) {
@@ -28,11 +29,13 @@ export const Search = ({ value, onChange, children }) =>
     />
   </form>
 
-export const Field = ({name, children}) =>
+export const Field = ({name, value, onChange, children}) =>
   <form>
     <input
       id={name}
       type="text"
+      value={value}
+      onChange = {onChange}
       placeholder = {children}
       />
   </form>
@@ -47,31 +50,25 @@ export const TextField = ({name, children}) =>
       />
   </form>
 
-export const Table = ({ list, pattern, onDismiss, editItems}) =>
+export const Table = ({ list, pattern}) =>
 
   <div className="table">
       { list.filter(isSearched(pattern)).map(item =>
         <div key={item.objectID} className="table-row">
           <span style={{ width: '10%' }}>{item.genericName}</span>
           <span style={{ width: '10%' }}>{item.brandName}</span>
-          <span style={{ width: '5%' }}>{item.dosage}</span>
+          <span style={{ width: '10%' }}>{item.dosage}</span>
           
           <span style={{ width: '10%' }}>
-            <Button 
-              onClick={() => onDismiss(item._id)}
-              className="button-inline"
-            >
-              Dismiss
-            </Button>
+            <DismissModal
+              item = {item}
+            />
           </span>
 
-          <span style={{width: '5%'}}>
-            <Button
-              onClick={() => editItems(item)}
-              className="button-inline"
-            >
-              Edit
-            </Button>
+          <span style = {{width: '10%'}}>
+            <EditModal
+              item = {item}
+            />
           </span>
         </div>
       )}
