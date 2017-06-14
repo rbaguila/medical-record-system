@@ -18,7 +18,7 @@ import {AddModal} from './AddModal';
 // const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 const medicineAPI = `http://localhost:3001/api/medicines/`;
 
-class App extends Component {
+export class App extends Component {
   
   constructor(props) {
     super(props);
