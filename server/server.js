@@ -2,6 +2,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var path = require('path');
 
 //create app instance
 var app = express();
@@ -27,6 +28,8 @@ app.use(function(req, res, next) {
  res.setHeader('Cache-Control', 'no-cache');
  next();
 });
+
+
 
 //Use our router configuration when we call /api
 app.use('/api', router);
