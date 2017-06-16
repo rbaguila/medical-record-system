@@ -8,13 +8,12 @@ import {myRoutes} from './myRoutes';
 import Home from './Home';
 import Archives from './Archives';
 import Main from './Main'
-
-
+import Pdf from './Pdf';
 import './index.css';
 
 var browserHistory = createHistory();
 
-ReactDOM.render(
+/*ReactDOM.render(
     <Router history={browserHistory}>
         <Home>
             <Route path="/archives" component={Archives} />
@@ -24,4 +23,7 @@ ReactDOM.render(
     
     document.getElementById('root'));
 // ReactDOM.render(<SampleModal />, document.getElementById('root2'));
-registerServiceWorker();
+registerServiceWorker();*/
+
+
+ReactDOM.render(<Pdf />, document.getElementById('root2'));
