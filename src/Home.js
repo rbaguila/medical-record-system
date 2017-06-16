@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Router, Route, Link} from 'react-router-dom';
 import LoginModal from './LoginModal';
+import RegisterModal from './RegisterModal';
 import * as bootstrap from 'react-bootstrap';
 
 
@@ -26,6 +27,7 @@ export class Home extends Component{
                 </Link>
 
                 <LoginModal />
+                <RegisterModal />
 
                 {this.props.children}
             

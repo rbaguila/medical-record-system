@@ -90,7 +90,6 @@ export class AddModal extends Component{
 
                     <bootstrap.Modal.Body>
                         <div>
-                            
                             <Field
                                 name="genericField"
                                 value={this.state.searchTermGeneric}
