@@ -13,7 +13,7 @@ import './index.css';
 
 var browserHistory = createHistory();
 
-/*ReactDOM.render(
+ReactDOM.render(
     <Router history={browserHistory}>
         <Home>
             <Route path="/archives" component={Archives} />
@@ -22,8 +22,7 @@ var browserHistory = createHistory();
     </Router>, 
     
     document.getElementById('root'));
-// ReactDOM.render(<SampleModal />, document.getElementById('root2'));
-registerServiceWorker();*/
+registerServiceWorker();
 
 
-ReactDOM.render(<Pdf />, document.getElementById('root2'));
+// ReactDOM.render(<Pdf />, document.getElementById('root2'));

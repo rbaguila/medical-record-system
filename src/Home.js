@@ -26,7 +26,7 @@ export class Home extends Component{
                     </bootstrap.Button>
                 </Link>
 
-                <LoginModal />
+                <LoginModal style="border-right: 10px" />
                 <RegisterModal />
 
                 {this.props.children}

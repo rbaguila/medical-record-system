@@ -84,6 +84,7 @@ border-bottom: 1px solid #38BB6C;
 
 }
 
-.rows{
-
+.MainButtons{
+  display: flex;
+  position: relative;
 }
