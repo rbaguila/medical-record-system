@@ -8,9 +8,13 @@ import './Home.css';
 //These are the buttons that are always present
 export class Home extends Component{
 
+    constructor(props){
+        super(props);
+    }
+
     render(){
         return(
-            <div>
+            <div className="body">
                 <Link to="/patients">
                     <bootstrap.Button
                         bsStyle="danger"
