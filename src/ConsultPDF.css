@@ -1,0 +1,9 @@
+textarea{
+    resize: none;
+}
+
+.addPres{
+    padding-top: 10px;
+    display: flex;
+    position: relative;
+}

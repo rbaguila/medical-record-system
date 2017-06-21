@@ -8,6 +8,7 @@ import {Search} from './importables';
 import {Button} from './importables';
 import {AddModal} from './AddModal';
 import {PDFButton} from './PDFButton';
+import {ConsultPDF} from './ConsultPDF';
 
 
 
@@ -70,6 +71,7 @@ export class App extends Component {
         <div className="MainButtons">
           <AddModal  />
           <PDFButton />
+          <ConsultPDF />
           
         </div>
           <Table 
