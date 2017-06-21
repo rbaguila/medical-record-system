@@ -15,10 +15,10 @@ var browserHistory = createHistory();
 //Add routes here
 ReactDOM.render(
     <Router history={browserHistory}>
-        <Route path="/" component={Home}>
+        <Home>
             <Route path="/patients" component={Patients} />
             <Route path="/medicines" component={Medicines} />
-        </Route>
+        </Home>
     </Router>, 
     
     document.getElementById('root'));
