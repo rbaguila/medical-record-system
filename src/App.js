@@ -7,6 +7,8 @@ import {Table} from './importables';
 import {Search} from './importables';
 import {Button} from './importables';
 import {AddModal} from './AddModal';
+import {PDFButton} from './PDFButton';
+import {ConsultPDF} from './ConsultPDF';
 
 
 
@@ -66,8 +68,12 @@ export class App extends Component {
           </Search>
         </div>
 
-        <AddModal />
+        <div className="MainButtons">
+          <AddModal  />
+          <PDFButton />
+          <ConsultPDF />
           
+        </div>
           <Table 
             list={result}
             pattern={searchTerm}

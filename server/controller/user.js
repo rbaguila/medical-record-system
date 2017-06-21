@@ -10,6 +10,7 @@ exports.viewUsers = (req, res) => {
     });
 };
 
+
 exports.viewUser = (req, res) => {
     User.findById(req.params.user_id, function(err, user){
         if(err){
@@ -19,6 +20,8 @@ exports.viewUser = (req, res) => {
         }
     });
 };
+
+exports
 
 //Adds a user
 exports.addUser = (req, res) => {

@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import * as bootstrap from 'react-bootstrap';
 import {Field} from './importables';
-import axios from 'axios';
 
 const usersAPI = `http://localhost:3001/api/users`;
 
-
+ var resp;
 
 export class LoginModal extends Component{
 
@@ -20,26 +19,49 @@ export class LoginModal extends Component{
 
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
-        this.getUsers = this.getUsers.bind(this);
         this.userChange = this.userChange.bind(this);
         this.passChange = this.passChange.bind(this);
         this.submit = this.submit.bind(this);
-        this.setResults = this.setResults.bind(this);
+        this.setResponseData = this.setResponseData.bind(this);
     }
 
-    setResults(result){
-        this.setState({ result });
-    }
+    setResponseData(result){
 
-    getUsers(){
-        fetch(usersAPI)
-        .then(response => response.json())
-        .then(result => this.setResults(result));
+        var loggedIn = false;
+        var passwordIn = false;
 
+        this.setState({result});
+
+         for(var i=0; i<result.length; i++){
+            if(result[i].username === this.state.userField){
+                if(result[i].password === this.state.passField){
+                    loggedIn = true;
+                }else{
+                    passwordIn = true;
+                }
+            }
+        }
+
+        if(loggedIn === true){
+            console.log("Logged in!");
+        }else{
+            if(loggedIn === false && passwordIn === true){
+                console.log("You have entered a wrong password");
+            }else if(loggedIn === false && passwordIn === false){
+                console.log("Wrong username or password");
+            }
+        }
+
+        this.close();
     }
 
     submit(){
-        
+        // Make a request for a user with a given ID
+        fetch(usersAPI)
+          .then(response => response.json())
+          .then(result => this.setResponseData(result));
+
+
     }
 
     userChange(event){
@@ -71,7 +93,6 @@ export class LoginModal extends Component{
                     Login
                 </bootstrap.Button>
 
-                <div>
                     <bootstrap.Modal show={this.state.showModal} onHide={this.close}>
                         <bootstrap.Modal.Header closeButton>
                             <bootstrap.Modal.Title>Sign-in</bootstrap.Modal.Title>
@@ -109,7 +130,7 @@ export class LoginModal extends Component{
                             <bootstrap.Button onClick={this.close}>Close</bootstrap.Button>
                         </bootstrap.Modal.Footer>
                     </bootstrap.Modal>
-                </div>
+                
             </span>
             
         );
