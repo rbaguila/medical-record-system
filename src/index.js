@@ -1,28 +1,26 @@
-import React, {Component} from 'react';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import {Router, Route} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import ReactDOM from 'react-dom';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import {myRoutes} from './myRoutes';
+
 import Home from './Home';
-import Archives from './Archives';
-import Main from './Main'
-import Pdf from './Pdf';
+import Medicines from './Medicine/Medicines';
+import Patients from './Patient/Patients';
 import './index.css';
 
 var browserHistory = createHistory();
 
+
+//Add routes here
 ReactDOM.render(
     <Router history={browserHistory}>
         <Home>
-            <Route path="/archives" component={Archives} />
-            <Route path="/app" component={App} />
+            <Route path="/patients" component={Patients} />
+            <Route path="/medicines" component={Medicines} />
         </Home>
     </Router>, 
     
     document.getElementById('root'));
 registerServiceWorker();
 
-
-// ReactDOM.render(<Pdf />, document.getElementById('root2'));

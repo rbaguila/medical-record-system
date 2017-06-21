@@ -3,7 +3,6 @@ import * as bootstrap from 'react-bootstrap';
 
 var jsPDF = require('jspdf');
 const medicineAPI = `http://localhost:3001/api/medicines/`;
-var resp;
 
 export class PDFButton extends Component{
     constructor(props){

@@ -4,8 +4,6 @@ import {Field} from './importables';
 
 const usersAPI = `http://localhost:3001/api/users`;
 
- var resp;
-
 export class LoginModal extends Component{
 
     constructor(props){

@@ -1,62 +1,61 @@
-//Returns a boostrap Button and a bootstrap modal for editing medicine
-
+//Returns a bootstrap button and bootstrap modal for adding medicine
 import React, { Component } from 'react';
 import axios from 'axios';
 
 //Imports all importables from react-bootstrap and puts in a variable named bootstrap
 //Can be accessed by e.g., bootstrap.Button
 import * as bootstrap from 'react-bootstrap';
-import {Field} from './importables';
+import {Field} from '../importables';
 
-export class EditModal extends Component{
+const medicineAPI = `http://localhost:3001/api/medicines/`;
 
-    //Constructor is used to substitute for getInitialState();
+export class AddModal extends Component{
+
     constructor(props){
         super(props);
-        //console.log(props.item.genericName)
         this.state = {
-            //Show modal should be set to false
             showModal: false,
-            item: props.item,
-            searchTermGeneric: props.item.genericName,
-            searchTermBrand: props.item.brandName,
-            searchTermDosage: props.item.dosage
-            
-        };
+            searchTermGeneric: '',
+            searchTermBrand: '',
+            searchTermDosage: '',
+        }
 
-        this.close = this.close.bind(this);
         this.open = this.open.bind(this);
+        this.close = this.close.bind(this);
+        this.submit = this.submit.bind(this);
         this.onSearchChangeGeneric = this.onSearchChangeGeneric.bind(this);
         this.onSearchChangeBrand= this.onSearchChangeBrand.bind(this);
         this.onSearchChangeDosage = this.onSearchChangeDosage.bind(this);
-        this.submit = this.submit.bind(this);
-        
-    };
-
-    //Submit function for edit
-    submit(){
-
-        axios.put(`http://localhost:3001/api/medicine/` + this.state.item._id, {
-            genericName: this.state.searchTermGeneric,
-            brandName: this.state.searchTermBrand,
-            dosage: this.state.searchTermDosage
-        }).then(function(response){
-           console.log(response);
-        }).then(function(error){
-          console.log(error);
-        })
-
-        this.close();
-        window.location.reload();
     }
 
-    //Required to open and close modal
-    close(){
-        this.setState({showModal: false});
+    submit(){
+
+        if(this.state.searchTermBrand === '' || this.state.searchTermGeneric === '' || this.state.searchTermDosage
+        === ''){
+            console.log("Fields cannot be empty");
+            this.close();
+        }else{
+             axios.post(medicineAPI, {
+                brandName: this.state.searchTermBrand ,
+                genericName: this.state.searchTermGeneric,
+                dosage: this.state.searchTermDosage
+            }).then(function(response){
+                console.log(response);
+            }).catch(function(error){
+                console.log(error);
+            });
+            this.close();
+            window.location.reload();
+        }
+
     }
 
     open(){
         this.setState({ showModal: true});
+    }
+
+    close(){
+        this.setState({ showModal: false});
     }
 
     //Dynamic change on button value
@@ -73,30 +72,24 @@ export class EditModal extends Component{
     }
 
     render(){
-
-        
         return(
-            //Button  
             <div>
                 <bootstrap.Button
-                    bsStyle="primary"
-                    bsSize="small"
+                    bsStyle="success"
                     onClick={this.open}
+                    bsSize="small"
                 >
-                    Edit
+                    Add Medicine
                 </bootstrap.Button>
 
 
                 <bootstrap.Modal show={this.state.showModal} onHide={this.close}>
                     <bootstrap.Modal.Header closeButton>
-                        <bootstrap.Modal.Title>Edit Medicine</bootstrap.Modal.Title>
+                        <bootstrap.Modal.Title>Add Medicine</bootstrap.Modal.Title>
                     </bootstrap.Modal.Header>
 
                     <bootstrap.Modal.Body>
                         <div>
-                            <p>Enter new generic name: </p>
-                            
-                            
                             <Field
                                 name="genericField"
                                 value={this.state.searchTermGeneric}
@@ -105,8 +98,6 @@ export class EditModal extends Component{
                                 Generic Name
                             </Field>
 
-
-                            <p>Enter new brand name: </p>
                             <Field
                                 name="brandField"
                                 value={this.state.searchTermBrand}
@@ -115,7 +106,6 @@ export class EditModal extends Component{
                                 Brand Name
                             </Field>
 
-                            <p>Enter new dosage: </p>
                             <Field
                                 name="dosageField"
                                 value={this.state.searchTermDosage}
@@ -124,18 +114,20 @@ export class EditModal extends Component{
                                 Dosage Name
                             </Field>
                         </div>
+
                     </bootstrap.Modal.Body>
 
                     <bootstrap.Modal.Footer>
-                        <bootstrap.Button onClick={this.submit} bsStyle="primary"> Submit </bootstrap.Button>
+                        <bootstrap.Button onClick={this.submit} bsStyle="primary">Submit</bootstrap.Button>
                         <bootstrap.Button onClick={this.close}>Close</bootstrap.Button>
                     </bootstrap.Modal.Footer>
 
                 </bootstrap.Modal>
             </div>
-            
         );
     }
+
 }
 
-export default EditModal;
+
+export default AddModal;

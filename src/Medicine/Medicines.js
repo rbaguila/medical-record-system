@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import './App.css';
+import '../App.css';
 
-import {Field} from './importables';
-import {Table} from './importables';
-import {Search} from './importables';
-import {Button} from './importables';
+import {MedicinesTable} from './MedicinesTable';
+import {Search} from '../importables';
 import {AddModal} from './AddModal';
 import {PDFButton} from './PDFButton';
-import {ConsultPDF} from './ConsultPDF';
 
 
 
@@ -20,7 +16,7 @@ import {ConsultPDF} from './ConsultPDF';
 // const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 const medicineAPI = `http://localhost:3001/api/medicines/`;
 
-export class App extends Component {
+export class Medicines extends Component {
   
   constructor(props) {
     super(props);
@@ -56,32 +52,38 @@ export class App extends Component {
   render() {
     const { searchTerm, result } = this.state;
     if (!result) { return null; }
-    return (                                                                            
-      <div className="page">
-        <div className="interactions">
-          
-          <Search
-            value={searchTerm}
-            onChange={this.onSearchChange}
-            >
-            Search
-          </Search>
-        </div>
+    return (
 
-        <div className="MainButtons">
-          <AddModal  />
-          <PDFButton />
-          <ConsultPDF />
+      <div>
+        <h1>Medicines</h1>
+        <div className="page">
+
           
+          <div className="interactions">
+            
+            <Search
+              value={searchTerm}
+              onChange={this.onSearchChange}
+              >
+              Search
+            </Search>
+          </div>
+
+          <div className="MainButtons">
+            <AddModal  />
+            <PDFButton />
+            
+          </div>
+            <MedicinesTable 
+              list={result}
+              pattern={searchTerm}
+            />
         </div>
-          <Table 
-            list={result}
-            pattern={searchTerm}
-          />
-      </div>
+      </div>                                                                            
+      
     );
   }
 }
 
 
-export default App;
+export default Medicines;

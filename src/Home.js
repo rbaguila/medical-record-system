@@ -1,33 +1,37 @@
 import React, {Component} from 'react';
-import {Router, Route, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import * as bootstrap from 'react-bootstrap';
+import './Home.css';
 
-
+//These are the buttons that are always present
 export class Home extends Component{
 
     render(){
         return(
             <div>
-                <Link to="/archives">
+                <Link to="/patients">
                     <bootstrap.Button
                         bsStyle="danger"
                         bsSize="small">
-                        Archives
+                        Patients
                     </bootstrap.Button>
                 </Link>
-                <Link to="/app">
+                <Link to="/medicines">
                     <bootstrap.Button
                         bsStyle="success"
                         bsSize="small"
                     >
-                        App
+                        Medicines
                     </bootstrap.Button>
                 </Link>
 
-                <LoginModal style="border-right: 10px" />
-                <RegisterModal />
+                <div className="loginregister">
+                    <LoginModal/>
+                    <RegisterModal />
+                </div>
+                
 
                 {this.props.children}
             

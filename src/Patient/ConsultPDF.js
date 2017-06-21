@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import * as bootstrap from 'react-bootstrap';
 import './ConsultPDF.css';
 import * as newjs from './sample.js';
-import {Field} from './importables';
+import {Field} from '../importables';
 
 var jsPDF = require('jspdf');
 
@@ -12,12 +12,11 @@ export class ConsultPDF extends Component{
     constructor(props){
         super(props);
         this.state = {
+            item: props.item,
             showModal: false,
-            value: newjs.consultValue,
+            value: "Mr/Ms. " + props.item.lastName+ "\n\n" +newjs.consultValue,
             fieldValue: ''
         }
-
-        
 
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);

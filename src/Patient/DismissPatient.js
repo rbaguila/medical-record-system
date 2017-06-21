@@ -1,4 +1,4 @@
-//Returns a boostrap Button and a bootstrap modal for deleting medicine
+//Returns a boostrap Button and a bootstrap modal for deleting patients
 
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -6,10 +6,9 @@ import axios from 'axios';
 //Imports all importables from react-bootstrap and puts in a variable named bootstrap
 //Can be accessed by e.g., bootstrap.Button
 import * as bootstrap from 'react-bootstrap';
-import {Field} from './importables';
 
 
-export class DismissModal extends Component{
+export class DismissPatient extends Component{
     
     //Accepts an item and sets it as its own
     constructor(props){
@@ -27,7 +26,7 @@ export class DismissModal extends Component{
     //Delete function
     submit(){
         console.log(this.state.item._id);
-        axios.delete(`http://localhost:3001/api/medicine/` + this.state.item._id);
+        axios.delete(`http://localhost:3001/api/patient/` + this.state.item._id);
         this.close();
         window.location.reload();        
     }
@@ -52,7 +51,7 @@ export class DismissModal extends Component{
 
                 <bootstrap.Modal show={this.state.showModal} onHide={this.close}>
                     <bootstrap.Modal.Header closeButton>
-                        <bootstrap.Modal.Title>Delete medicine</bootstrap.Modal.Title>
+                        <bootstrap.Modal.Title>Delete patient</bootstrap.Modal.Title>
                     </bootstrap.Modal.Header>
 
                     <bootstrap.Modal.Body>
@@ -70,4 +69,4 @@ export class DismissModal extends Component{
     }
 }
 
-export default DismissModal;
+export default DismissPatient;
