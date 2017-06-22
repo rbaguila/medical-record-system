@@ -30,8 +30,6 @@ export class PDFButton extends Component{
         pdf.text(90,50, "Generic Name");
         pdf.text(150,50, "Dosage");
 
-        console.log(result[1].dosage);
-
         var height = 60;
         for(var i=0; i<result.length; i++){
             pdf.text(30, height, result[i].brandName);
