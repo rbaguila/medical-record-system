@@ -111,7 +111,7 @@ export class AddModal extends Component{
                                 value={this.state.searchTermDosage}
                                 onChange = {this.onSearchChangeDosage}
                             >
-                                Dosage Name
+                                Dosage
                             </Field>
                         </div>
 
