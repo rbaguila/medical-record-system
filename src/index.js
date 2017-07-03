@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route} from 'react-router-dom';
+import {Router, Route, Switch} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import registerServiceWorker from './registerServiceWorker';
+import {LoginRegister} from './LoginRegister';
 
 import Home from './Home';
 import Medicines from './Medicine/Medicines';
@@ -14,12 +15,7 @@ var browserHistory = createHistory();
 
 //Add routes here
 ReactDOM.render(
-    <Router history={browserHistory}>
-        <Home>
-            <Route path="/patients" component={Patients} />
-            <Route path="/medicines" component={Medicines} />
-        </Home>
-    </Router>, 
+    <LoginRegister />, 
     
     document.getElementById('root'));
 registerServiceWorker();
