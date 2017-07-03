@@ -11,7 +11,6 @@ export class Home extends Component{
 
     constructor(props){
         super(props);
-        console.log(props.children);
     }
 
     render(){
@@ -30,6 +29,15 @@ export class Home extends Component{
                         bsSize="small"
                     >
                         Medicines
+                    </bootstrap.Button>
+                </Link>
+                <Link to="/procedures">
+                    <bootstrap.Button
+                        bsStyle="info"
+                        bsSize="small"
+                    >
+
+                        Procedures
                     </bootstrap.Button>
                 </Link>
 

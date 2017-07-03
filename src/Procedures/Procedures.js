@@ -1,18 +1,14 @@
-import React, { Component } from 'react';
-import '../App.css';
+import React, {Component} from 'react';
 
 import {Search} from '../importables';
+import {ProceduresTable} from './ProceduresTable';
+import {AddProcedure} from './AddProcedure';
+import {EditProcedure} from './EditProcedure';
 
-import {ConsultPDF} from './ConsultPDF';
+const proceduresAPI = 'http://localhost:3001/api/procedures';
 
-import {PatientsTable} from './PatientsTable';
-import {AddPatient} from './AddPatient';
-
-const patientAPI = 'http://localhost:3001/api/patients';
-
-
-export class Patients extends Component{
-
+export class Procedures extends Component{
+    
     constructor(props){
         super(props);
         this.state = {
@@ -30,7 +26,7 @@ export class Patients extends Component{
     }
 
     fetchTopStories(){
-        fetch(patientAPI)
+        fetch(proceduresAPI)
         .then(response => response.json())
         .then(result => this.setSearchTopStories(result));
     }
@@ -43,7 +39,7 @@ export class Patients extends Component{
     onSearchChange(event){
         this.setState({ searchTerm: event.target.value });
     }
-
+    
     render(){
 
         const { searchTerm, result } = this.state;
@@ -51,10 +47,9 @@ export class Patients extends Component{
             return null;
         }
 
-
         return(
             <div>
-                <h1>Patients</h1>
+                <h1>Procedures</h1>
                 <div className="page">
                     <div className="interactions">
 
@@ -67,19 +62,20 @@ export class Patients extends Component{
                     </div>
 
                     <div>
-                        <AddPatient />
+                        <AddProcedure />
                         
                     </div>
 
-                    <PatientsTable
+                    <ProceduresTable
                         list={result}
                         pattern={searchTerm}
                    />
 
                 </div>
-            </div>    
+            </div>
+
         );
     }
 }
 
-export default Patients;
+export default Procedures;

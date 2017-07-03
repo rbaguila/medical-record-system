@@ -10,6 +10,7 @@ import {Field} from './importables';
 import Home from './Home';
 import Medicines from './Medicine/Medicines';
 import Patients from './Patient/Patients';
+import Procedures from './Procedures/Procedures';
 
 const usersAPI = `http://localhost:3001/api/users`;
 
@@ -39,11 +40,13 @@ export class LoginModal extends Component{
 
         var browserHistory = createHistory();
 
+        //Add paths here
         ReactDOM.render(
             <Router history={browserHistory}>
                 <Home>
                     <Route path="/patients" component={Patients} />
                     <Route path="/medicines" component={Medicines} />
+                    <Route path="/procedures" component={Procedures} />
                 </Home>
             </Router>
             , document.getElementById('root'));
