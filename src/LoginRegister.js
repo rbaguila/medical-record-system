@@ -4,6 +4,8 @@ import {Router, Route} from 'react-router';
 import createHistory from 'history/createBrowserHistory';
 import {Link} from 'react-router-dom';
 
+import UserProfile from './UserProfile';
+
 import * as bootstrap from 'react-bootstrap';
 
 import Medicines from './Medicine/Medicines';

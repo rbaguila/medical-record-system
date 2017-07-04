@@ -6,6 +6,8 @@ import RegisterModal from './RegisterModal';
 import * as bootstrap from 'react-bootstrap';
 import './Home.css';
 
+import UserProfile from './UserProfile';
+
 //These are the buttons that are always present
 export class Home extends Component{
 
@@ -14,8 +16,12 @@ export class Home extends Component{
     }
 
     render(){
+
+        var name = UserProfile.getUser().username;
+
         return(
             <div className="body">
+                
                 <Link to="/patients">
                     <bootstrap.Button
                         bsStyle="danger"
@@ -46,7 +52,7 @@ export class Home extends Component{
                     <RegisterModal />
                 </div>
                 
-
+                <h3> Welcome {name} </h3>
                 {this.props.children}
             
             </div>    

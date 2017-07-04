@@ -8,6 +8,7 @@ import {ConsultPDF} from './ConsultPDF';
 import {PatientsTable} from './PatientsTable';
 import {AddPatient} from './AddPatient';
 
+
 const patientAPI = 'http://localhost:3001/api/patients';
 
 
@@ -55,6 +56,7 @@ export class Patients extends Component{
         return(
             <div>
                 <h1>Patients</h1>
+               
                 <div className="page">
                     <div className="interactions">
 

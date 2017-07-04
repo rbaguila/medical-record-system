@@ -31,11 +31,6 @@ export const ProceduresTable = ({ list, pattern}) =>
               item = {item}
             />
           </span> 
-
-          
-          
-
-          
         </div>
       )}
     </div>

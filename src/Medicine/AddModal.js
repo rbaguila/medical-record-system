@@ -1,11 +1,15 @@
 //Returns a bootstrap button and bootstrap modal for adding medicine
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
+import Routes from '../Routes';
+import Medicines from './Medicines';
 
 //Imports all importables from react-bootstrap and puts in a variable named bootstrap
 //Can be accessed by e.g., bootstrap.Button
 import * as bootstrap from 'react-bootstrap';
 import {Field} from '../importables';
+import UserProfile from '../UserProfile';
 
 const medicineAPI = `http://localhost:3001/api/medicines/`;
 
@@ -45,13 +49,18 @@ export class AddModal extends Component{
                 console.log(error);
             });
             this.close();
-            window.location.reload();
+            ReactDOM.render(
+    <Medicines />, 
+    
+    document.getElementById('root'));
         }
 
     }
 
     open(){
         this.setState({ showModal: true});
+        var user = UserProfile.getUser();
+        console.log(user.username);
     }
 
     close(){

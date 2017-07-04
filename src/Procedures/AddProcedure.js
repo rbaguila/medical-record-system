@@ -6,6 +6,8 @@ import axios from 'axios';
 //Can be accessed by e.g., bootstrap.Button
 import * as bootstrap from 'react-bootstrap';
 import {Field} from '../importables';
+import {ProceduresTable} from './ProceduresTable';
+import {Procedures} from './Procedures';
 
 const procedureAPI = `http://localhost:3001/api/procedures/`;
 
@@ -45,7 +47,6 @@ export class AddProcedure extends Component{
                 console.log(error);
             });
             this.close();
-            window.location.reload();
         }
 
     }
@@ -79,7 +80,7 @@ export class AddProcedure extends Component{
                     onClick={this.open}
                     bsSize="small"
                 >
-                    Add Patient
+                    Add Procedure
                 </bootstrap.Button>
 
 
