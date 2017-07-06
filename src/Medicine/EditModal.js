@@ -6,7 +6,7 @@ import axios from 'axios';
 //Imports all importables from react-bootstrap and puts in a variable named bootstrap
 //Can be accessed by e.g., bootstrap.Button
 import * as bootstrap from 'react-bootstrap';
-import {Field} from './importables';
+import {Field} from '../importables';
 
 export class EditModal extends Component{
 

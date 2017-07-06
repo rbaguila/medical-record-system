@@ -1,10 +1,20 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+import {Router, Route} from 'react-router';
+import createHistory from 'history/createBrowserHistory';
+import {Link} from 'react-router-dom';
+
 import * as bootstrap from 'react-bootstrap';
 import {Field} from './importables';
 
-const usersAPI = `http://localhost:3001/api/users`;
+import Home from './Home';
+import Medicines from './Medicine/Medicines';
+import Patients from './Patient/Patients';
+import Procedures from './Procedures/Procedures';
 
- var resp;
+import UserProfile from './UserProfile';
+
+const usersAPI = `http://localhost:3001/api/users`;
 
 export class LoginModal extends Component{
 
@@ -23,10 +33,30 @@ export class LoginModal extends Component{
         this.passChange = this.passChange.bind(this);
         this.submit = this.submit.bind(this);
         this.setResponseData = this.setResponseData.bind(this);
+        this.createPaths = this.createPaths.bind(this);
+    }
+
+
+
+    createPaths(){
+
+        var browserHistory = createHistory();
+
+        //Add paths here
+        ReactDOM.render(
+            <Router history={browserHistory}>
+                <Home>
+                    <Route path="/patients" component={Patients} />
+                    <Route path="/medicines" component={Medicines} />
+                    <Route path="/procedures" component={Procedures} />
+                </Home>
+            </Router>
+            , document.getElementById('root'));
     }
 
     setResponseData(result){
 
+        var loggeduser;
         var loggedIn = false;
         var passwordIn = false;
 
@@ -36,6 +66,7 @@ export class LoginModal extends Component{
             if(result[i].username === this.state.userField){
                 if(result[i].password === this.state.passField){
                     loggedIn = true;
+                    loggeduser = result[i];
                 }else{
                     passwordIn = true;
                 }
@@ -44,6 +75,8 @@ export class LoginModal extends Component{
 
         if(loggedIn === true){
             console.log("Logged in!");
+            UserProfile.setUser(loggeduser);
+            console.log(UserProfile.getUser());
         }else{
             if(loggedIn === false && passwordIn === true){
                 console.log("You have entered a wrong password");

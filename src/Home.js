@@ -1,34 +1,58 @@
 import React, {Component} from 'react';
-import {Router, Route, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import * as bootstrap from 'react-bootstrap';
+import './Home.css';
 
+import UserProfile from './UserProfile';
 
+//These are the buttons that are always present
 export class Home extends Component{
 
+    constructor(props){
+        super(props);
+    }
+
     render(){
+
+        var name = UserProfile.getUser().username;
+
         return(
-            <div>
-                <Link to="/archives">
+            <div className="body">
+                
+                <Link to="/patients">
                     <bootstrap.Button
                         bsStyle="danger"
                         bsSize="small">
-                        Archives
+                        Patients
                     </bootstrap.Button>
                 </Link>
-                <Link to="/app">
+                <Link to="/medicines">
                     <bootstrap.Button
                         bsStyle="success"
                         bsSize="small"
                     >
-                        App
+                        Medicines
+                    </bootstrap.Button>
+                </Link>
+                <Link to="/procedures">
+                    <bootstrap.Button
+                        bsStyle="info"
+                        bsSize="small"
+                    >
+
+                        Procedures
                     </bootstrap.Button>
                 </Link>
 
-                <LoginModal style="border-right: 10px" />
-                <RegisterModal />
-
+                <div className="loginregister">
+                    <LoginModal/>
+                    <RegisterModal />
+                </div>
+                
+                <h3> Welcome {name} </h3>
                 {this.props.children}
             
             </div>    

@@ -3,7 +3,6 @@ import * as bootstrap from 'react-bootstrap';
 
 var jsPDF = require('jspdf');
 const medicineAPI = `http://localhost:3001/api/medicines/`;
-var resp;
 
 export class PDFButton extends Component{
     constructor(props){
@@ -30,8 +29,6 @@ export class PDFButton extends Component{
         pdf.text(30,50, "Brand Name");
         pdf.text(90,50, "Generic Name");
         pdf.text(150,50, "Dosage");
-
-        console.log(result[1].dosage);
 
         var height = 60;
         for(var i=0; i<result.length; i++){

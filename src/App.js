@@ -1,87 +1,25 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import './App.css';
+import CarriersTable from "./CarriersTable";
 
-import {Field} from './importables';
-import {Table} from './importables';
-import {Search} from './importables';
-import {Button} from './importables';
-import {AddModal} from './AddModal';
-import {PDFButton} from './PDFButton';
-import {ConsultPDF} from './ConsultPDF';
+const url='http://54.169.167.121:8081/api/carriers';
 
-
-
-// We can use it later to make fetching of data more dynamic 
-// const DEFAULT_QUERY = 'redux';
-// const PATH_BASE = 'https://hn.algolia.com/api/v1';
-// const PATH_SEARCH = '/search';
-// const PARAM_SEARCH = 'query=';
-// const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
-const medicineAPI = `http://localhost:3001/api/medicines/`;
-
-export class App extends Component {
+class App extends Component {
   
-  constructor(props) {
-    super(props);
-    this.state = {
-      result: null,
-      searchTerm: '',
-    };
-    this.setSearchTopstories = this.setSearchTopstories.bind(this);
-    this.fetchSearchTopstories = this.fetchSearchTopstories.bind(this);
-    this.onSearchChange = this.onSearchChange.bind(this);
-  }
-
-  setSearchTopstories(result) {
-    this.setState({ result });
-  }
-
-  fetchSearchTopstories(searchTerm) {
-    //convert fetching of data to axios command
-    fetch(medicineAPI)
-    .then(response => response.json())
-    .then(result => this.setSearchTopstories(result));
-  }
-
-  componentDidMount() {
-    const { searchTerm } = this.state;
-    this.fetchSearchTopstories(searchTerm);
-  }
-
-  onSearchChange(event) {
-    this.setState({ searchTerm: event.target.value });
-  }
-
   render() {
-    const { searchTerm, result } = this.state;
-    if (!result) { return null; }
-    return (                                                                            
-      <div className="page">
-        <div className="interactions">
-          
-          <Search
-            value={searchTerm}
-            onChange={this.onSearchChange}
-            >
-            Search
-          </Search>
-        </div>
-
-        <div className="MainButtons">
-          <AddModal  />
-          <PDFButton />
-          <ConsultPDF />
-          
-        </div>
-          <Table 
-            list={result}
-            pattern={searchTerm}
+    // const { listOfCarriers } = this.state;
+    return (
+      <div className="App">
+        <div className="ui text container">
+          <CarriersTable
+            title="Carriers"
+            url={ url }
+            
           />
+        </div>
       </div>
     );
   }
 }
-
 
 export default App;

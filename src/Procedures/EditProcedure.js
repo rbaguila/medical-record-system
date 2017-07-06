@@ -1,44 +1,45 @@
-//Returns a bootstrap button and bootstrap modal for adding medicine
+//Returns a bootstrap button and bootstrap modal for adding patient
 import React, { Component } from 'react';
 import axios from 'axios';
 
 //Imports all importables from react-bootstrap and puts in a variable named bootstrap
 //Can be accessed by e.g., bootstrap.Button
 import * as bootstrap from 'react-bootstrap';
-import {Field} from './importables';
+import {Field} from '../importables';
 
-const medicineAPI = `http://localhost:3001/api/medicines/`;
+const procedureAPI = `http://localhost:3001/api/procedure/`;
 
-export class AddModal extends Component{
+export class EditProcedure extends Component{
 
     constructor(props){
         super(props);
         this.state = {
             showModal: false,
-            searchTermGeneric: '',
-            searchTermBrand: '',
-            searchTermDosage: '',
+            item: props.item,
+            searchName: props.item.name,
+            searchDescription: props.item.description,
+            searchFee: props.item.fee,
         }
 
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.submit = this.submit.bind(this);
-        this.onSearchChangeGeneric = this.onSearchChangeGeneric.bind(this);
-        this.onSearchChangeBrand= this.onSearchChangeBrand.bind(this);
-        this.onSearchChangeDosage = this.onSearchChangeDosage.bind(this);
+        this.onSearchName = this.onSearchName.bind(this);
+        this.onSearchDescription= this.onSearchDescription.bind(this);
+        this.onSearchFee = this.onSearchFee.bind(this);
     }
 
     submit(){
 
-        if(this.state.searchTermBrand === '' || this.state.searchTermGeneric === '' || this.state.searchTermDosage
+        if(this.state.searchName === '' || this.state.searchDescription === '' || this.state.searchFee
         === ''){
             console.log("Fields cannot be empty");
             this.close();
         }else{
-             axios.post(medicineAPI, {
-                brandName: this.state.searchTermBrand ,
-                genericName: this.state.searchTermGeneric,
-                dosage: this.state.searchTermDosage
+             axios.put(procedureAPI + this.state.item._id, {
+                name: this.state.searchName ,
+                description: this.state.searchDescription,
+                fee: this.state.searchFee
             }).then(function(response){
                 console.log(response);
             }).catch(function(error){
@@ -59,16 +60,16 @@ export class AddModal extends Component{
     }
 
     //Dynamic change on button value
-    onSearchChangeGeneric(event) {
-        this.setState({ searchTermGeneric: event.target.value });
+    onSearchName(event) {
+        this.setState({ searchName: event.target.value });
     }
 
-    onSearchChangeBrand(event) {
-        this.setState({ searchTermBrand: event.target.value });
+    onSearchDescription(event) {
+        this.setState({ searchDescription: event.target.value });
     }
 
-    onSearchChangeDosage(event) {
-        this.setState({ searchTermDosage: event.target.value });
+    onSearchFee(event) {
+        this.setState({ searchFee: event.target.value });
     }
 
     render(){
@@ -79,39 +80,39 @@ export class AddModal extends Component{
                     onClick={this.open}
                     bsSize="small"
                 >
-                    Add Medicine
+                    Edit Procedure
                 </bootstrap.Button>
 
 
                 <bootstrap.Modal show={this.state.showModal} onHide={this.close}>
                     <bootstrap.Modal.Header closeButton>
-                        <bootstrap.Modal.Title>Add Medicine</bootstrap.Modal.Title>
+                        <bootstrap.Modal.Title>Edit Procedure</bootstrap.Modal.Title>
                     </bootstrap.Modal.Header>
 
                     <bootstrap.Modal.Body>
                         <div>
                             <Field
-                                name="genericField"
-                                value={this.state.searchTermGeneric}
-                                onChange = {this.onSearchChangeGeneric}
+                                name="firstNameField"
+                                value={this.state.searchName}
+                                onChange = {this.onSearchName}
                             >
-                                Generic Name
+                                Name
                             </Field>
 
                             <Field
-                                name="brandField"
-                                value={this.state.searchTermBrand}
-                                onChange = {this.onSearchChangeBrand}
+                                name="middleNameField"
+                                value={this.state.searchDescription}
+                                onChange = {this.onSearchDescription}
                             >
-                                Brand Name
+                                Description
                             </Field>
 
                             <Field
-                                name="dosageField"
-                                value={this.state.searchTermDosage}
-                                onChange = {this.onSearchChangeDosage}
+                                name="lastNameField"
+                                value={this.state.searchFee}
+                                onChange = {this.onSearchFee}
                             >
-                                Dosage Name
+                                Fee
                             </Field>
                         </div>
 
@@ -130,4 +131,4 @@ export class AddModal extends Component{
 }
 
 
-export default AddModal;
+export default EditProcedure;
