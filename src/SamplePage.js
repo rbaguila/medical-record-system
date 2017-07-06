@@ -1,27 +1,24 @@
-//Returns a bootstrap button and bootstrap modal for adding medicine
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Routes from '../Routes';
-import Medicines from './Medicines';
+import './App.css'
 
-//Imports all importables from react-bootstrap and puts in a variable named bootstrap
-//Can be accessed by e.g., bootstrap.Button
+
 import * as bootstrap from 'react-bootstrap';
-import {Field} from '../importables';
-import UserProfile from '../UserProfile';
+import {Field} from './importables';
+
 
 const medicineAPI = `http://localhost:3001/api/medicines/`;
 
-export class AddModal extends Component{
-
+export class SamplePage extends Component{
+    
     constructor(props){
         super(props);
         this.state = {
+            result: null,
+            searchTerm: '',
             showModal: false,
-            searchTermGeneric: '',
-            searchTermBrand: '',
-            searchTermDosage: '',
+            
         }
 
         this.open = this.open.bind(this);
@@ -32,6 +29,27 @@ export class AddModal extends Component{
         this.onSearchChangeDosage = this.onSearchChangeDosage.bind(this);
     }
 
+    open(){
+        this.setState({ showModal: true});
+    }
+
+    close(){
+        this.setState({ showModal: false});
+    }
+
+     //Dynamic change on button value
+    onSearchChangeGeneric(event) {
+        this.setState({ searchTermGeneric: event.target.value });
+    }
+
+    onSearchChangeBrand(event) {
+        this.setState({ searchTermBrand: event.target.value });
+    }
+
+    onSearchChangeDosage(event) {
+        this.setState({ searchTermDosage: event.target.value });
+    }
+    
     submit(){
 
         if(this.state.searchTermBrand === '' || this.state.searchTermGeneric === '' || this.state.searchTermDosage
@@ -49,55 +67,91 @@ export class AddModal extends Component{
                 console.log(error);
             });
             this.close();
-            
-
+            this.fetchSearchTopstories();
+            this.render();
         }
 
     }
 
-    open(){
-        this.setState({ showModal: true});
-        var user = UserProfile.getUser();
-        console.log(user.username);
+    setSearchTopstories(result) {
+        this.setState({ result });
     }
 
-    close(){
-        this.setState({ showModal: false});
-    }
+  fetchSearchTopstories(searchTerm) {
+    //convert fetching of data to axios command
+    fetch(medicineAPI)
+    .then(response => response.json())
+    .then(result => this.setSearchTopstories(result));
+  }
 
-    //Dynamic change on button value
-    onSearchChangeGeneric(event) {
-        this.setState({ searchTermGeneric: event.target.value });
-    }
+  componentDidMount() {
+    const { searchTerm } = this.state;
+    this.fetchSearchTopstories();
+  }
 
-    onSearchChangeBrand(event) {
-        this.setState({ searchTermBrand: event.target.value });
-    }
+  onSearchChange(event) {
+    this.setState({ searchTerm: event.target.value });
+  }
 
-    onSearchChangeDosage(event) {
-        this.setState({ searchTermDosage: event.target.value });
-    }
-
+    
     render(){
+
+
+        
+
+        const {searchTerm, result} = this.state;
+        if(!result){
+            return null;
+        }
+
+        let medicineTable = result.map(item =>{
+            return(
+                <div key={item._id} className="table-row">
+                    <span style={{width: '10%'}}>{item.genericName}</span>
+                </div>
+            );
+        })
+
         return(
             <div>
+                <h1>Welcome to sampling databases</h1>
                 <bootstrap.Button
-                    bsStyle="success"
+                    bsStyle="primary"
+                    bsSize="large"
                     onClick={this.open}
-                    bsSize="small"
                 >
-                    Add Medicine
+                    Add Some Shit
                 </bootstrap.Button>
 
 
+                <div className="table">
+                  {medicineTable}
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                {/* Modal functions*/}
                 <bootstrap.Modal show={this.state.showModal} onHide={this.close}>
                     <bootstrap.Modal.Header closeButton>
-                        <bootstrap.Modal.Title>Add Medicine</bootstrap.Modal.Title>
+                        <bootstrap.Modal.Title>Add Some Shit</bootstrap.Modal.Title>
                     </bootstrap.Modal.Header>
 
                     <bootstrap.Modal.Body>
                         <div>
-                            <Field
+                             <Field
                                 name="genericField"
                                 value={this.state.searchTermGeneric}
                                 onChange = {this.onSearchChangeGeneric}
@@ -119,9 +173,8 @@ export class AddModal extends Component{
                                 onChange = {this.onSearchChangeDosage}
                             >
                                 Dosage
-                            </Field>
+                            </Field>  
                         </div>
-
                     </bootstrap.Modal.Body>
 
                     <bootstrap.Modal.Footer>
@@ -133,8 +186,6 @@ export class AddModal extends Component{
             </div>
         );
     }
-
 }
 
-
-export default AddModal;
+export default SamplePage;

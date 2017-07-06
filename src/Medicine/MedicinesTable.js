@@ -12,7 +12,7 @@ export function isSearched(searchTerm) {
 
 export const MedicinesTable = ({ list, pattern}) =>
 
-  <div className="table">
+  <div className="table" id="table">
       { list.filter(isSearched(pattern)).map(item =>
         <div key={item._id} className="table-row">
           <span style={{ width: '10%' }}>{item.genericName}</span>

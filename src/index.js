@@ -5,6 +5,8 @@ import createHistory from 'history/createBrowserHistory';
 import registerServiceWorker from './registerServiceWorker';
 
 import Routes from './Routes';
+import SamplePage from './SamplePage';
+import App from './App';
 import './index.css';
 
 var browserHistory = createHistory();
@@ -12,7 +14,7 @@ var browserHistory = createHistory();
 
 //Add routes here
 ReactDOM.render(
-    <Routes />, 
+    <SamplePage />, 
     
     document.getElementById('root'));
 registerServiceWorker();

@@ -70,7 +70,9 @@ export class Medicines extends Component {
           </div>
 
           <div className="MainButtons">
-            <AddModal  />
+            <AddModal  
+            
+            />
             <PDFButton />
             
           </div>
