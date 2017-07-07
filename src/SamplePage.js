@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import './App.css'
-
 
 import * as bootstrap from 'react-bootstrap';
 import {Field} from './importables';
 
 
 const medicineAPI = `http://localhost:3001/api/medicines/`;
+let medicineTable;
 
 export class SamplePage extends Component{
     
@@ -27,6 +26,7 @@ export class SamplePage extends Component{
         this.onSearchChangeGeneric = this.onSearchChangeGeneric.bind(this);
         this.onSearchChangeBrand= this.onSearchChangeBrand.bind(this);
         this.onSearchChangeDosage = this.onSearchChangeDosage.bind(this);
+        this.update = this.update.bind(this);
     }
 
     open(){
@@ -49,6 +49,10 @@ export class SamplePage extends Component{
     onSearchChangeDosage(event) {
         this.setState({ searchTermDosage: event.target.value });
     }
+
+    update(){
+        this.fetchSearchTopstories();
+    }
     
     submit(){
 
@@ -67,8 +71,7 @@ export class SamplePage extends Component{
                 console.log(error);
             });
             this.close();
-            this.fetchSearchTopstories();
-            this.render();
+
         }
 
     }
@@ -77,7 +80,7 @@ export class SamplePage extends Component{
         this.setState({ result });
     }
 
-  fetchSearchTopstories(searchTerm) {
+  fetchSearchTopstories() {
     //convert fetching of data to axios command
     fetch(medicineAPI)
     .then(response => response.json())
@@ -89,6 +92,10 @@ export class SamplePage extends Component{
     this.fetchSearchTopstories();
   }
 
+  componentWillUpdate(nextProps, nextState){
+      this.fetchSearchTopstories();
+  }
+
   onSearchChange(event) {
     this.setState({ searchTerm: event.target.value });
   }
@@ -96,25 +103,29 @@ export class SamplePage extends Component{
     
     render(){
 
-
-        
-
         const {searchTerm, result} = this.state;
         if(!result){
             return null;
         }
 
-        let medicineTable = result.map(item =>{
+        medicineTable = result.map(item =>{
             return(
-                <div key={item._id} className="table-row">
-                    <span style={{width: '10%'}}>{item.genericName}</span>
-                </div>
+                <tr key={item._id}>
+                    <th>{item.genericName}</th>
+                    <th>{item.brandName}</th>
+                    <th>{item.dosage}</th>
+                </tr>
             );
         })
 
         return(
+
+
             <div>
-                <h1>Welcome to sampling databases</h1>
+                <div>
+
+                </div>
+                <bootstrap.PageHeader>Medical Record System <small>Medicine</small></bootstrap.PageHeader>
                 <bootstrap.Button
                     bsStyle="primary"
                     bsSize="large"
@@ -123,25 +134,21 @@ export class SamplePage extends Component{
                     Add Some Shit
                 </bootstrap.Button>
 
+                <bootstrap.Table responsive striped bordered condensed hover>
+                    <thead>
+                        <tr>
+                            <th>Generic Name</th>
+                            <th>Brand Name</th>
+                            <th>Dosage</th>
+                            <th colspan="2">Actions</th>
+                        </tr>
+                    </thead>
 
-                <div className="table">
-                  {medicineTable}
-                </div>
+                    <tbody>
+                        {medicineTable}
+                    </tbody>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                </bootstrap.Table>
 
                 {/* Modal functions*/}
                 <bootstrap.Modal show={this.state.showModal} onHide={this.close}>

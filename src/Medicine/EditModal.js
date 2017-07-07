@@ -47,7 +47,6 @@ export class EditModal extends Component{
         })
 
         this.close();
-        window.location.reload();
     }
 
     //Required to open and close modal

@@ -36,6 +36,10 @@ export class Procedures extends Component{
         this.fetchTopStories(searchTerm);
     }
 
+    componentWillUpdate(nextProps, nextState){
+      this.fetchTopStories();
+    }
+
     onSearchChange(event){
         this.setState({ searchTerm: event.target.value });
     }

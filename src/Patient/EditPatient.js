@@ -47,7 +47,6 @@ export class EditPatient extends Component{
         })
 
         this.close();
-        window.location.reload();
     }
 
     //Required to open and close modal

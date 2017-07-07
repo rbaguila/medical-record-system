@@ -27,8 +27,7 @@ export class DismissPatient extends Component{
     submit(){
         console.log(this.state.item._id);
         axios.delete(`http://localhost:3001/api/patient/` + this.state.item._id);
-        this.close();
-        window.location.reload();        
+        this.close();       
     }
 
     open(){
