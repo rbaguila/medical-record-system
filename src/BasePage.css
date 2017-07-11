@@ -1,0 +1,77 @@
+.leftNav{
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+
+.welcomeIcon{
+    
+    height: 10%;
+    background: #063376; /* fallback for old browsers */
+}
+
+.myLinks{
+    height: 90%;
+    background: #86a9de;
+}
+
+
+.rightNav{
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.navIcon{
+    height: 10%;
+    background: white;
+}
+
+.myLogo{
+    height: 90px;
+    width: 90px;
+}
+
+.rightNavIcons{
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    border: 2px solid black;
+    
+}
+
+.glpyhs{
+    color: #86a9de;
+}
+
+.basicInfo{
+    height: 30%;
+    background: white;
+}
+
+.tables{
+    height: 60%;
+    background: #e3e0e1;
+}
+
+.divider{
+    padding: 0;
+    margin: 0;
+    border: 4px #e3e0e1 double;
+    border-bottom: 1px solid #fff;
+    width: 80%
+}
+
+.tables{
+    padding-top: 20px;
+}
+.panels{
+    width: 90%;
+}
+
+#container{
+    display: flex;
+    align-items: center;
+}

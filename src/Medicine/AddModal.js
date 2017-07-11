@@ -49,8 +49,6 @@ export class AddModal extends Component{
                 console.log(error);
             });
             this.close();
-            
-
         }
 
     }

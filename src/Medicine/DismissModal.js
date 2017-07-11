@@ -28,7 +28,6 @@ export class DismissModal extends Component{
         console.log(this.state.item._id);
         axios.delete(`http://localhost:3001/api/medicine/` + this.state.item._id);
         this.close();
-        window.location.reload();        
     }
 
     open(){

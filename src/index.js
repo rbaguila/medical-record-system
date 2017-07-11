@@ -1,21 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, Switch} from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
 import registerServiceWorker from './registerServiceWorker';
 
 import Routes from './Routes';
 import SamplePage from './SamplePage';
 import App from './App';
-import './index.css';
-
-var browserHistory = createHistory();
-
+import BasePage from './BasePage';
 
 //Add routes here
-ReactDOM.render(
-    <SamplePage />, 
-    
-    document.getElementById('root'));
+ReactDOM.render(<BasePage />,document.getElementById('root'));
 registerServiceWorker();
 

@@ -46,7 +46,6 @@ export class EditProcedure extends Component{
                 console.log(error);
             });
             this.close();
-            window.location.reload();
         }
 
     }

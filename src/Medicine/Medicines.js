@@ -45,6 +45,10 @@ export class Medicines extends Component {
     this.fetchSearchTopstories(searchTerm);
   }
 
+    componentWillUpdate(nextProps, nextState){
+      this.fetchSearchTopstories();
+  }
+
   onSearchChange(event) {
     this.setState({ searchTerm: event.target.value });
   }
