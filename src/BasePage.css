@@ -23,6 +23,16 @@
     margin: 0;
 }
 
+.rightNavIcons{
+    position: absolute;
+    right: 0;
+    height: 10vh;
+    width: 80%;
+    border: 2px solid black;
+    margin: auto;
+    right: 10px;
+}
+
 .navIcon{
     height: 10%;
     background: white;
@@ -33,14 +43,7 @@
     width: 90px;
 }
 
-.rightNavIcons{
-    position: absolute;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    border: 2px solid black;
-    
-}
+
 
 .glpyhs{
     color: #86a9de;
