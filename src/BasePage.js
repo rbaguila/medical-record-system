@@ -76,7 +76,7 @@ export class BasePage extends Component{
 
             <div>
 
-                <bootstrap.Col md={2} className="leftNav">
+                <bootstrap.Col sm={2} md={2} className="leftNav">
                     <div className="welcomeIcon">
                         <center>Welcome, Bruce Wayne</center>
                     </div>
@@ -88,17 +88,20 @@ export class BasePage extends Component{
                     </div>
                 </bootstrap.Col>
 
-                <bootstrap.Col md={10} className="rightNav">
+                <bootstrap.Col sm={10} md={10} className="rightNav">
                     <div className="navIcon">
-                        <bootstrap.Col md={4}>
-                            
+                        <bootstrap.Col sm= {4} md={4}>
+                            <div className="leftNavIcons">
+                                <bootstrap.Button bsSize="large" ><bootstrap.Glyphicon glyph="glyphicon glyphicon-envelope" className="glyphs"/></bootstrap.Button>
+                                <bootstrap.Button bsSize="large"><bootstrap.Glyphicon glyph="glyphicon glyphicon-question-sign" className="glyphs"/></bootstrap.Button>
+                            </div>
                         </bootstrap.Col>
 
-                        <bootstrap.Col md={4}>
+                        <bootstrap.Col sm={4} md={4}>
                             <center><img src={aw2} className="myLogo"/></center>
                         </bootstrap.Col>
 
-                        <bootstrap.Col md={4}>
+                        <bootstrap.Col sm={4} md={4}>
                             <div className="rightNavIcons">
                                 <bootstrap.Button bsSize="large" ><bootstrap.Glyphicon glyph="glyphicon glyphicon-cog" className="glyphs"/></bootstrap.Button>
                                 <bootstrap.Button bsSize="large"><bootstrap.Glyphicon glyph="glyphicon glyphicon-question-sign" className="glyphs"/></bootstrap.Button>

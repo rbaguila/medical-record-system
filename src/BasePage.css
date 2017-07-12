@@ -24,13 +24,17 @@
 }
 
 .rightNavIcons{
-    position: absolute;
-    right: 0;
-    height: 10vh;
-    width: 80%;
-    border: 2px solid black;
-    margin: auto;
-    right: 10px;
+   height: 10vh;
+   display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+.leftNavIcons{
+   height: 10vh;
+   display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
 }
 
 .navIcon{
