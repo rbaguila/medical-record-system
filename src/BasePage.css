@@ -5,15 +5,25 @@
 }
 
 
-.welcomeIcon{
+.overhead{
     
-    height: 10%;
+    height: 10vh;
     background: #063376; /* fallback for old browsers */
 }
 
-.myLinks{
-    height: 90%;
+.welcomeIcon{
+    height: 25vh;
     background: #86a9de;
+}
+
+.myLinks{
+    height: 55vh;
+    background: #86a9de;
+}
+
+.underhead{
+    height: 10vh;
+    background: #063376;
 }
 
 
@@ -33,8 +43,8 @@
 .leftNavIcons{
    height: 10vh;
    display: flex;
-    justify-content: center; /* align horizontal */
-    align-items: center; /* align vertical */
+   justify-content: center; /* align horizontal */
+   align-items: center; /* align vertical */
 }
 
 .navIcon{
@@ -58,9 +68,9 @@
     background: white;
 }
 
+
+
 .tables{
-    height: 60%;
-    background: #e3e0e1;
 }
 
 .divider{
@@ -72,13 +82,23 @@
 }
 
 .tables{
-    padding-top: 20px;
+    padding-top: 50px;
 }
 .panels{
     width: 90%;
 }
 
 #container{
-    display: flex;
-    align-items: center;
+   text-align: center;
+}
+
+.sampleBox{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    height: 30vh;
+}
+
+.sampleBox > img{
+    padding-top: 15px;
 }

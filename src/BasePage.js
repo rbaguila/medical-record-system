@@ -9,8 +9,22 @@ import {DismissModal} from './Medicine/DismissModal';
 import "./BasePage.css";
 import * as bootstrap from 'react-bootstrap';
 import aw2 from "./images/aw2.png";
+import avatar from "./images/avatar.png";
 
 const medicineAPI = `http://localhost:3001/api/medicines/`;
+
+
+const optionstt = (
+    <bootstrap.Tooltip id="tooltip"><strong>Options</strong></bootstrap.Tooltip>
+);
+const messagestt = (
+    <bootstrap.Tooltip id="tooltip"><strong>Messages</strong></bootstrap.Tooltip>
+);
+const helptt = (
+    <bootstrap.Tooltip id="tooltip"><strong>Help</strong></bootstrap.Tooltip>
+);
+
+
 let medicineTable;
 
 export class BasePage extends Component{
@@ -77,13 +91,28 @@ export class BasePage extends Component{
             <div>
 
                 <bootstrap.Col sm={2} md={2} className="leftNav">
+                    <div className="overhead">
+                        
+                    </div>
+
                     <div className="welcomeIcon">
-                        <center>Welcome, Bruce Wayne</center>
+                        <div className="sampleBox">
+                            <img src= {avatar} />
+                            <h2> Hello, first name </h2>
+                            <p>
+                                <em>Ptr number: 041475654</em>
+                            </p>
+                                <em>License number: 0413218</em>    
+                        </div>
                     </div>
 
                     <div className="myLinks">
-                     
+                        Medicine
+                        Patients
+                        Procedures
+                    </div>
 
+                    <div className="underhead">
 
                     </div>
                 </bootstrap.Col>
@@ -92,8 +121,13 @@ export class BasePage extends Component{
                     <div className="navIcon">
                         <bootstrap.Col sm= {4} md={4}>
                             <div className="leftNavIcons">
-                                <bootstrap.Button bsSize="large" ><bootstrap.Glyphicon glyph="glyphicon glyphicon-envelope" className="glyphs"/></bootstrap.Button>
-                                <bootstrap.Button bsSize="large"><bootstrap.Glyphicon glyph="glyphicon glyphicon-question-sign" className="glyphs"/></bootstrap.Button>
+                                <bootstrap.OverlayTrigger placement="bottom" overlay={messagestt}>
+                                    <bootstrap.Button bsSize="large" ><bootstrap.Glyphicon glyph="glyphicon glyphicon-envelope" className="glyphs"/></bootstrap.Button>
+                                </bootstrap.OverlayTrigger>
+                                
+                                 <bootstrap.OverlayTrigger placement="bottom" overlay={helptt}>
+                                     <bootstrap.Button bsSize="large"><bootstrap.Glyphicon glyph="glyphicon glyphicon-question-sign" className="glyphs"/></bootstrap.Button>
+                                </bootstrap.OverlayTrigger>
                             </div>
                         </bootstrap.Col>
 
@@ -103,8 +137,11 @@ export class BasePage extends Component{
 
                         <bootstrap.Col sm={4} md={4}>
                             <div className="rightNavIcons">
-                                <bootstrap.Button bsSize="large" ><bootstrap.Glyphicon glyph="glyphicon glyphicon-cog" className="glyphs"/></bootstrap.Button>
-                                <bootstrap.Button bsSize="large"><bootstrap.Glyphicon glyph="glyphicon glyphicon-question-sign" className="glyphs"/></bootstrap.Button>
+                                <bootstrap.OverlayTrigger placement="bottom" overlay={optionstt}>
+                                    <bootstrap.Button bsSize="large" ><bootstrap.Glyphicon glyph="glyphicon glyphicon-cog" className="glyphs"/></bootstrap.Button>
+                                </bootstrap.OverlayTrigger>
+
+                                <bootstrap.Button bsSize="large"><bootstrap.Glyphicon glyph="glyphicon glyphicon-user" className="glyphs"/></bootstrap.Button>
                             </div>
                            
                         </bootstrap.Col>
@@ -114,16 +151,10 @@ export class BasePage extends Component{
 
                     <center><hr className="divider" /></center>
 
-                    <div className="basicInfo">
-
-                    </div>
-
                     <div className="tables">
-                        <center><AddModal /></center>
-
                         <div className="container">
-                            <bootstrap.Panel header="Medicine" bsStyle="info" className="panels">
-                                <bootstrap.Table responsive striped bordered  >
+                            <bootstrap.Panel header="Medicine" bsStyle="info">
+                                <bootstrap.Table responsive striped bordered>
                                     <thead>
                                         <tr>
                                             <th>Generic Name</th>
