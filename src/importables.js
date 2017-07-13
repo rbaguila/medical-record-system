@@ -19,11 +19,11 @@ export const Search = ({ value, onChange, children }) =>
     />
   </form>
 
-export const Field = ({name, value, onChange, children}) =>
+export const Field = ({name, value, onChange, type, children}) =>
   <form>
     <input
       id={name}
-      type="text"
+      type={type}
       value={value}
       onChange = {onChange}
       placeholder = {children}

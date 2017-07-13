@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import * as bootstrap from 'react-bootstrap';
 import axios from 'axios';
 import "../BasePage.css";
@@ -12,10 +12,13 @@ import {DismissModal} from './DismissModal';
 
 import aw2 from "../images/aw2.png";
 import avatar from "../images/avatar.png";
+import UserProfile from '../UserProfile';
 
 const medicineAPI = `http://localhost:3001/api/medicines/`;
 
 
+
+const user = UserProfile.getUser();
 
 
 const optionstt = (
@@ -34,6 +37,12 @@ const signout = (
 
 
 let medicineTable;
+
+const redir = () => {
+    if(UserProfile.isAuth() === false){
+        <Redirect from="/medicines" to="/login" />
+    }
+}
 
 export class Medicines extends Component{
 
@@ -88,7 +97,6 @@ export class Medicines extends Component{
 
     render(){
 
-
         const {searchTerm, result} = this.state;
         if(!result){
             return null;
@@ -125,7 +133,7 @@ export class Medicines extends Component{
                     <div className="welcomeIcon">
                         <div className="sampleBox">
                             <img src= {avatar} />
-                            <h2> Hello, name </h2>
+                            <h2> Hello, {user.username} </h2>
                             <p>
                                 <em>Ptr number: 041475654</em>
                             </p>
@@ -178,7 +186,7 @@ export class Medicines extends Component{
                                     <bootstrap.MenuItem>View Account</bootstrap.MenuItem>
                                     <bootstrap.MenuItem>Activity Log</bootstrap.MenuItem>
                                     <bootstrap.MenuItem divider/>
-                                    <bootstrap.MenuItem>Sign-out</bootstrap.MenuItem>
+                                    <bootstrap.MenuItem><Link to="/login">Sign-out</Link></bootstrap.MenuItem>
                                 </bootstrap.DropdownButton>
                             </div>
                            

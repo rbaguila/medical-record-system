@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route} from 'react-router';
+import {Router, Route, Redirect} from 'react-router';
 import createHistory from 'history/createBrowserHistory';
 import {Link} from 'react-router-dom';
+
 
 import * as bootstrap from 'react-bootstrap';
 import {Field} from './importables';
@@ -11,6 +12,7 @@ import Home from './Home';
 import Medicines from './Medicine/Medicines';
 import Patients from './Patient/Patients';
 import Procedures from './Procedures/Procedures';
+import LoginRegister from './LoginRegister';
 
 import UserProfile from './UserProfile';
 
@@ -33,26 +35,27 @@ export class LoginModal extends Component{
         this.passChange = this.passChange.bind(this);
         this.submit = this.submit.bind(this);
         this.setResponseData = this.setResponseData.bind(this);
-        this.createPaths = this.createPaths.bind(this);
     }
 
 
 
-    createPaths(){
+    // createPaths(){
 
-        var browserHistory = createHistory();
+    //     var browserHistory = createHistory();
 
-        //Add paths here
-        ReactDOM.render(
-            <Router history={browserHistory}>
-                <Home>
-                    <Route path="/patients" component={Patients} />
-                    <Route path="/medicines" component={Medicines} />
-                    <Route path="/procedures" component={Procedures} />
-                </Home>
-            </Router>
-            , document.getElementById('root'));
-    }
+    //     //Add paths here
+    //     ReactDOM.render(
+    //         <Router history={browserHistory}>
+    //             <Home>
+    //                 <Redirect from="/login" to="patients" />
+    //                 <Route path="/patients" component={Patients} />
+    //                 <Route path="/medicines" component={Medicines} />
+    //                 <Route path="/procedures" component={Procedures} />
+    //                 <Route path="/login" component={LoginRegister} />
+    //             </Home>
+    //         </Router>
+    //         , document.getElementById('root'));
+    // }
 
     setResponseData(result){
 
@@ -74,9 +77,7 @@ export class LoginModal extends Component{
         }
 
         if(loggedIn === true){
-            console.log("Logged in!");
             UserProfile.setUser(loggeduser);
-            console.log(UserProfile.getUser());
         }else{
             if(loggedIn === false && passwordIn === true){
                 console.log("You have entered a wrong password");
@@ -120,7 +121,7 @@ export class LoginModal extends Component{
             <span>
                 <bootstrap.Button
                     bsStyle="primary"
-                    bsSize="small"
+                    bsSize="large"
                     onClick={this.open}
                     >
                     Login
@@ -139,6 +140,7 @@ export class LoginModal extends Component{
                                         id="username"
                                         value={this.state.userField}
                                         onChange={this.userChange}
+                                        type="text"
                                     >
                                         e.g. ertzworm
                                     </Field>
@@ -150,6 +152,7 @@ export class LoginModal extends Component{
                                         id="password"
                                         value={this.state.passField}
                                         onChange={this.passChange}
+                                        type="password"
                                     >
                                         e.g. 1234
                                     </Field>
@@ -159,7 +162,7 @@ export class LoginModal extends Component{
                         </bootstrap.Modal.Body>
 
                         <bootstrap.Modal.Footer>
-                            <bootstrap.Button onClick={this.submit} bsStyle="primary"> Submit </bootstrap.Button>
+                            <Link onClick={this.submit} to="/patients" className="btn btn-primary">Submit</Link>
                             <bootstrap.Button onClick={this.close}>Close</bootstrap.Button>
                         </bootstrap.Modal.Footer>
                     </bootstrap.Modal>

@@ -19,7 +19,7 @@ export class Home extends Component{
         var name = UserProfile.getUser().username;
 
         return(
-            <div className="body">
+            <div>
                 {this.props.children}
             
             </div>    

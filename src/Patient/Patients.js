@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import {Link, Route, Router, Redirect} from 'react-router-dom';
 import * as bootstrap from 'react-bootstrap';
 import axios from 'axios';
+import createHistory from 'history/createBrowserHistory';
 import "../BasePage.css";
 
 import {Search} from '../importables';
@@ -10,10 +12,15 @@ import {AddPatient} from './AddPatient';
 import {EditPatient} from './EditPatient';
 import {DismissPatient} from './DismissPatient';
 
+
 import aw2 from "../images/aw2.png";
 import avatar from "../images/avatar.png";
+import UserProfile from '../UserProfile';
 
 const patientAPI = `http://localhost:3001/api/patients/`;
+
+
+const user = UserProfile.getUser();
 
 
 const optionstt = (
@@ -42,12 +49,15 @@ export class Patients extends Component{
             result: null,
             searchTerm: '',
             showModal: false,
-            
         }
 
 		this.isSearched = this.isSearched.bind(this);
 		this.onSearchChange = this.onSearchChange.bind(this);
+        this.fetchSearchTopstories = this.fetchSearchTopstories.bind(this);
+        this.setSearchTopstories = this.setSearchTopstories.bind(this);
     }
+
+
 
 
     setSearchTopstories(result) {
@@ -65,10 +75,6 @@ export class Patients extends Component{
     const { searchTerm } = this.state;
     this.fetchSearchTopstories();
   }
-
-  componentWillUpdate(nextProps, nextState){
-      this.fetchSearchTopstories();
-  }
   
 	isSearched(searchTerm) {return function(item) {
 		return !searchTerm ||
@@ -82,14 +88,16 @@ export class Patients extends Component{
 		this.setState({ searchTerm: event.target.value });
 	}
 
+    componentWillUpdate(nextProps, nextState){
+        this.fetchSearchTopstories();
+    }
+
+
     render(){
-
-
         const {searchTerm, result} = this.state;
         if(!result){
             return null;
         }
-
         patientTable = result.filter(this.isSearched(searchTerm)).map(item =>{
             return(
                 <tr key={item._id}>
@@ -122,7 +130,7 @@ export class Patients extends Component{
                     <div className="welcomeIcon">
                         <div className="sampleBox">
                             <img src= {avatar} />
-                            <h2> Hello, name </h2>
+                            <h2> Hello, {user.username} </h2>
                             <p>
                                 <em>Ptr number: 041475654</em>
                             </p>
@@ -175,7 +183,7 @@ export class Patients extends Component{
                                     <bootstrap.MenuItem>View Account</bootstrap.MenuItem>
                                     <bootstrap.MenuItem>Activity Log</bootstrap.MenuItem>
                                     <bootstrap.MenuItem divider/>
-                                    <bootstrap.MenuItem>Sign-out</bootstrap.MenuItem>
+                                    <bootstrap.MenuItem><Link to="/login">Sign-out</Link></bootstrap.MenuItem>
                                 </bootstrap.DropdownButton>
                             </div>
                            
@@ -191,7 +199,8 @@ export class Patients extends Component{
                             <bootstrap.Panel header="Patients" bsStyle="info">
 
                                 <bootstrap.ButtonToolbar>
-                                    <AddPatient />
+                                    <AddPatient 
+                                    />
 									
                                 </bootstrap.ButtonToolbar>
 
@@ -220,7 +229,10 @@ export class Patients extends Component{
                                         {patientTable}
                                     </tbody>
 
+                                    
+
                                 </bootstrap.Table>
+
                             </bootstrap.Panel>
                         </div>
                     </div>

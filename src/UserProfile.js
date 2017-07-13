@@ -1,5 +1,7 @@
 const UserProfile = (function(){
 
+    var isLoggedin = false;
+
     var currentUser = {
         username: String,
         password: String,
@@ -29,6 +31,18 @@ const UserProfile = (function(){
         dateRegistered: Date,
     };
 
+    var isAuth = function(){
+        if(isLoggedin === false){
+            return false;
+        }else{
+            true;
+        }
+    }
+
+    var removeUser = function(){
+        isLoggedin = false;
+    }
+
     var getUser = function(){
         return currentUser;
     };
@@ -39,11 +53,15 @@ const UserProfile = (function(){
                 currentUser[prop] = user[prop];
             }
         }
+
+        isLoggedin = true;
     };
 
     return{
         getUser: getUser,
         setUser: setUser,
+        removeUser: removeUser,
+        isAuth: isAuth,
     }
 
 })();

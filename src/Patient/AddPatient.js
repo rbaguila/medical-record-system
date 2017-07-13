@@ -14,6 +14,10 @@ export class AddPatient extends Component{
     constructor(props){
         super(props);
         this.state = {
+            fetchData: props.fetchData,
+            updateResult: props.updateResult,
+            newSearch: props.newSearch,
+            force: props.force,
             showModal: false,
             searchFirstName: '',
             searchMiddleName: '',
@@ -26,6 +30,7 @@ export class AddPatient extends Component{
         this.onSearchFirstName = this.onSearchFirstName.bind(this);
         this.onSearchMiddleName= this.onSearchMiddleName.bind(this);
         this.onSearchLastName = this.onSearchLastName.bind(this);
+
     }
 
     submit(){
@@ -45,8 +50,9 @@ export class AddPatient extends Component{
                 console.log(error);
             });
             this.close();
-        }
+            
 
+        }
     }
 
     open(){

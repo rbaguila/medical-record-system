@@ -143,7 +143,7 @@ export class RegisterModal extends Component{
             <span>
                 <bootstrap.Button
                     bsStyle="info"
-                    bsSize="small"
+                    bsSize="large"
                     onClick={this.open}
                 >
                     Register

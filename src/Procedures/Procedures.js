@@ -11,6 +11,11 @@ import {DismissProcedure} from './DismissProcedure';
 
 import aw2 from "../images/aw2.png";
 import avatar from "../images/avatar.png";
+import UserProfile from '../UserProfile';
+
+
+
+const user = UserProfile.getUser();
 
 const procedureAPI = `http://localhost:3001/api/procedures/`;
 
@@ -119,7 +124,7 @@ export class BasePage extends Component{
                     <div className="welcomeIcon">
                         <div className="sampleBox">
                             <img src= {avatar} />
-                            <h2> Hello, name </h2>
+                            <h2> Hello, {user.username} </h2>
                             <p>
                                 <em>Ptr number: 041475654</em>
                             </p>
@@ -172,7 +177,7 @@ export class BasePage extends Component{
                                     <bootstrap.MenuItem>View Account</bootstrap.MenuItem>
                                     <bootstrap.MenuItem>Activity Log</bootstrap.MenuItem>
                                     <bootstrap.MenuItem divider/>
-                                    <bootstrap.MenuItem>Sign-out</bootstrap.MenuItem>
+                                    <bootstrap.MenuItem><Link to="/login">Sign-out</Link></bootstrap.MenuItem>
                                 </bootstrap.DropdownButton>
                             </div>
                            
