@@ -81,11 +81,11 @@ export class ConsultPDF extends Component{
                     </bootstrap.Modal.Header>
 
                     <bootstrap.Modal.Body>
-                        <div>
+                        <div className="textDiv">
                             <textarea
                                 value={this.state.value}
                                 onChange={this.textChange}
-                                rows="20" cols="90"
+                                className="myText"
                                 disabled>
                                
                             </textarea>

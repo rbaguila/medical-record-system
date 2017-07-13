@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 
 import axios from 'axios';
 
-
 import {AddModal} from './Medicine/AddModal';
+import {EditModal} from './Medicine/EditModal';
 import {DismissModal} from './Medicine/DismissModal';
+import {PDFButton} from './Medicine/PDFButton';
+import {Search} from './importables';
 
 import "./BasePage.css";
 import * as bootstrap from 'react-bootstrap';
@@ -14,14 +16,20 @@ import avatar from "./images/avatar.png";
 const medicineAPI = `http://localhost:3001/api/medicines/`;
 
 
+
+
 const optionstt = (
-    <bootstrap.Tooltip id="tooltip"><strong>Options</strong></bootstrap.Tooltip>
+    <bootstrap.Tooltip id="tooltip"><strong>Preferences</strong></bootstrap.Tooltip>
 );
 const messagestt = (
     <bootstrap.Tooltip id="tooltip"><strong>Messages</strong></bootstrap.Tooltip>
 );
 const helptt = (
     <bootstrap.Tooltip id="tooltip"><strong>Help</strong></bootstrap.Tooltip>
+);
+
+const signout = (
+    <bootstrap.Glyphicon glyph="glyphicon glyphicon-user" className="glyphs"/>
 );
 
 
@@ -38,6 +46,9 @@ export class BasePage extends Component{
             showModal: false,
             
         }
+
+		this.isSearched = this.isSearched.bind(this);
+		this.onSearchChange = this.onSearchChange.bind(this);
     }
 
 
@@ -60,6 +71,19 @@ export class BasePage extends Component{
   componentWillUpdate(nextProps, nextState){
       this.fetchSearchTopstories();
   }
+  
+	isSearched(searchTerm) {return function(item) {
+		return !searchTerm ||
+			item.genericName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			item.brandName.toLowerCase().includes(searchTerm.toLowerCase());
+		}
+	}
+
+	onSearchChange(event){
+		this.setState({ searchTerm: event.target.value });
+	}
+
+
 
 
     render(){
@@ -70,15 +94,18 @@ export class BasePage extends Component{
             return null;
         }
 
-        medicineTable = result.map(item =>{
+        medicineTable = result.filter(this.isSearched(searchTerm)).map(item =>{
             return(
                 <tr key={item._id}>
                     <th>{item.genericName}</th>
                     <th>{item.brandName}</th>
                     <th>{item.dosage}</th>
                     <th>
-                        <bootstrap.Button bsStyle="primary">Edit</bootstrap.Button>
-                        <bootstrap.Button bsStyle="danger">Delete</bootstrap.Button>
+                        <bootstrap.ButtonToolbar>
+                            <EditModal item={item} />
+                            <DismissModal item={item} />
+                        </bootstrap.ButtonToolbar>
+                        
                     </th>
                 </tr>
             );
@@ -98,18 +125,23 @@ export class BasePage extends Component{
                     <div className="welcomeIcon">
                         <div className="sampleBox">
                             <img src= {avatar} />
-                            <h2> Hello, first name </h2>
+                            <h2> Hello, name </h2>
                             <p>
                                 <em>Ptr number: 041475654</em>
                             </p>
-                                <em>License number: 0413218</em>    
+                            <p>    
+                                <em>License number: 0413218</em>
+                            </p>
                         </div>
                     </div>
 
                     <div className="myLinks">
-                        Medicine
-                        Patients
-                        Procedures
+                        <bootstrap.ButtonGroup vertical block>
+                            <bootstrap.Button bsStyle="primary"> Patients </bootstrap.Button>
+                            <bootstrap.Button bsStyle="primary" active> Medicines </bootstrap.Button>
+                            <bootstrap.Button bsStyle="primary"> Procedures </bootstrap.Button>
+
+                        </bootstrap.ButtonGroup>
                     </div>
 
                     <div className="underhead">
@@ -141,7 +173,13 @@ export class BasePage extends Component{
                                     <bootstrap.Button bsSize="large" ><bootstrap.Glyphicon glyph="glyphicon glyphicon-cog" className="glyphs"/></bootstrap.Button>
                                 </bootstrap.OverlayTrigger>
 
-                                <bootstrap.Button bsSize="large"><bootstrap.Glyphicon glyph="glyphicon glyphicon-user" className="glyphs"/></bootstrap.Button>
+                                <bootstrap.DropdownButton bsSize="large" title={signout}>
+                                    <bootstrap.MenuItem>View Patchnotes</bootstrap.MenuItem>
+                                    <bootstrap.MenuItem>View Account</bootstrap.MenuItem>
+                                    <bootstrap.MenuItem>Activity Log</bootstrap.MenuItem>
+                                    <bootstrap.MenuItem divider/>
+                                    <bootstrap.MenuItem>Sign-out</bootstrap.MenuItem>
+                                </bootstrap.DropdownButton>
                             </div>
                            
                         </bootstrap.Col>
@@ -154,6 +192,24 @@ export class BasePage extends Component{
                     <div className="tables">
                         <div className="container">
                             <bootstrap.Panel header="Medicine" bsStyle="info">
+
+                                <bootstrap.ButtonToolbar>
+                                    <AddModal />
+                                    <PDFButton />
+									
+                                </bootstrap.ButtonToolbar>
+
+								<div className="searchDiv">
+									<Search 
+										value={searchTerm}
+										onChange={this.onSearchChange}
+										
+									>
+										Search
+									</Search>
+								</div>
+                                
+
                                 <bootstrap.Table responsive striped bordered>
                                     <thead>
                                         <tr>

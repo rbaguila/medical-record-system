@@ -13,8 +13,6 @@ import Home from './Home';
 import Patients from './Patient/Patients';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
-
-import './login.css';
 import aw2 from './aw2.png';
 
 export class LoginRegister extends Component{

@@ -7,3 +7,9 @@ textarea{
     display: flex;
     position: relative;
 }
+
+.myText{
+    box-sizing:border-box;
+    height: 50vh;
+    width: 100%;
+}

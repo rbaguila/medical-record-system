@@ -8,6 +8,6 @@ import App from './App';
 import BasePage from './BasePage';
 
 //Add routes here
-ReactDOM.render(<BasePage />,document.getElementById('root'));
+ReactDOM.render(<Routes />,document.getElementById('root'));
 registerServiceWorker();
 

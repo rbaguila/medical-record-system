@@ -48,15 +48,19 @@ export class AddModal extends Component{
             }).catch(function(error){
                 console.log(error);
             });
+            this.setState({ searchTermGeneric: ''});
+            this.setState({ searchTermBrand: ''});
+            this.setState({ searchTermDosage: ''});
             this.close();
+            
         }
 
     }
 
     open(){
         this.setState({ showModal: true});
-        var user = UserProfile.getUser();
-        console.log(user.username);
+        // var user = UserProfile.getUser();
+        // console.log(user.username);
     }
 
     close(){
