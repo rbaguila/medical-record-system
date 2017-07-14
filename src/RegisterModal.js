@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {FieldGroup} from './importables';
 import {Field} from './importables';
 import * as bootstrap from 'react-bootstrap';
 import axios from 'axios';
@@ -10,20 +11,20 @@ export class RegisterModal extends Component{
     constructor(props){
         super(props);
         this.state = {
-            userField: 'ertzworm',
-            passField: '041895',
-            firstNameField: 'Justine',
-            middleNameField: 'Bungay',
-            lastNameField: 'Guiao',
-            officeAddressField: 'Dolores Homesite',
-            ptrField: 201229193,
-            licenseField: 5991,
-            phoneNumberField: 9165000418,
-            timeSlotField: '7 AM - 7 PM',
-            sexField: 'Male',
-            ageField: '22',
-            birthField: Date(),
-            referralField: 'Roinand Aguila',
+            userField: '',
+            passField: '',
+            firstNameField: '',
+            middleNameField: '',
+            lastNameField: '',
+            officeAddressField: '',
+            ptrField: '',
+            licenseField: '',
+            phoneNumberField: '',
+            timeSlotField: '',
+            sexField: '',
+            ageField: '',
+            birthField: '',
+            referralField: '',
             showModal: false,
         };
 
@@ -156,106 +157,137 @@ export class RegisterModal extends Component{
 
                     <bootstrap.Modal.Body>
                         <div>
-                            <Field
+
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Username"
+                                placeholder="Enter username"
                                 value={this.state.userField}
                                 onChange={this.userChange}
-                            >
+                            />
 
-                            e.g. jdlcruz
-                            
-                            </Field>
-
-                            <Field
+                            <FieldGroup
+                                id="formControlsText"
+                                type="password"
+                                label="Password"
+                                placeholder="Enter password"
                                 value={this.state.passField}
                                 onChange={this.passChange}
-                            >
-                            e.g. 1234
-                            </Field>
+                            />
 
-                             <Field
-                                value={this.state.firstNameField}
-                                onChange={this.firstNameChange}
-                             >
-                            e.g. Juan
-                            </Field>
+                            <bootstrap.Form inline>
 
-                             <Field
-                                value={this.state.middleNameField}
-                                onChange={this.middleNameChange}
-                            >
-                            e.g. De la
-                            </Field>
+                                <FieldGroup
+                                    id="formControlsText"
+                                    type="text"
+                                    placeholder="First name"
+                                    value={this.state.firstNameField}
+                                    onChange={this.firstNameChange}
+                                />
 
-                             <Field
-                                value={this.state.lastNameField}
-                                onChange={this.lastNameChange}
-                            >
-                            e.g. Cruz
-                            </Field>
+                                <FieldGroup
+                                    id="formControlsText"
+                                    type="text"
+                                    placeholder="Middle name"
+                                    value={this.state.middleNameField}
+                                    onChange={this.middleNameChange}
+                                />
 
-                            <Field
+                                <FieldGroup
+                                    id="formControlsText"
+                                    type="text"
+                                    placeholder="Last name"
+                                    value={this.state.lastNameField}
+                                    onChange={this.lastNameChange}
+                                />
+
+                            </bootstrap.Form>
+                            <br />
+
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Office Address"
+                                placeholder="Enter address"
                                 value={this.state.officeAddressField}
                                 onChange={this.officeAddressChange}
-                            >
-                            e.g. #102 Dolores Homesite
-                            </Field>
+                            />
 
-                            <Field
-                                value={this.state.ptrField}
-                                onChange={this.ptrChange}
+                            <bootstrap.Form inline>
+                                <FieldGroup
+                                    id="formControlsText"
+                                    type="text"
+                                    placeholder="Ptr Number"
+                                    value={this.state.ptrField}
+                                    onChange={this.ptrChange}
+                                />
 
-                            >
-                            e.g. 123456-ptr
-                            </Field>
 
-                            <Field
-                                value={this.state.licenseField}
-                                onChange={this.licenseChange}
-                            >
-                            e.g. 54321-license
-                            </Field>
 
-                            <Field
+                                <FieldGroup
+                                    id="formControlsText"
+                                    type="text"
+                                    placeholder="License Number"
+                                    value={this.state.licenseField}
+                                    onChange={this.licenseChange}
+                                />
+                            </bootstrap.Form>
+                            <br />
+
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Phone Number"
+                                placeholder="Enter phone number"
                                 value={this.state.phoneNumberField}
                                 onChange={this.phoneNumberChange}
-                            >
-                            e.g. 09165000418
-                            </Field>
+                            />
 
-                            <Field
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Time Slot"
+                                placeholder="Enter time slot e.g. (7 AM - 7 PM)"
                                 value={this.state.timeSlotField}
                                 onChange={this.timeSlotChange}
-                            >
-                            e.g. 8-9 PM
-                            </Field>
+                            />
 
-                            <Field
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Sex"
+                                placeholder="Enter sex e.g. Male, Female"
                                 value={this.state.sexField}
                                 onChange={this.sexChange}
-                            >
-                            e.g. Male, Female
-                            </Field>
+                            />
 
-                            <Field
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Age"
+                                placeholder="Enter age"
                                 value={this.state.ageField}
                                 onChange={this.ageChange}
-                            >
-                            e.g. 18
-                            </Field>
+                            />
 
-                            <Field
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Birthdate"
+                                placeholder="Enter birthdate e.g. 04/18/1995"
                                 value={this.state.birthField}
                                 onChange={this.birthChange}
-                            >
-                            e.g. 04/18/95
-                            </Field>
+                            />
 
-                            <Field
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Referred By"
+                                placeholder="e.g. Leo Angelo"
                                 value={this.state.referralField}
                                 onChange={this.referralChange}
-                            >
-                            e.g. by Leo Angelo Meguiso
-                            </Field>
+                            />
                         </div>
                     </bootstrap.Modal.Body>
 

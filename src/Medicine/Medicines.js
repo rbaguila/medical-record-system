@@ -78,7 +78,7 @@ export class Medicines extends Component{
   }
 
   componentWillUpdate(nextProps, nextState){
-      this.fetchSearchTopstories();
+     // this.fetchSearchTopstories();
   }
   
 	isSearched(searchTerm) {return function(item) {

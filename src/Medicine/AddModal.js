@@ -9,6 +9,7 @@ import Medicines from './Medicines';
 //Can be accessed by e.g., bootstrap.Button
 import * as bootstrap from 'react-bootstrap';
 import {Field} from '../importables';
+import {FieldGroup} from '../importables';
 import UserProfile from '../UserProfile';
 
 const medicineAPI = `http://localhost:3001/api/medicines/`;
@@ -99,29 +100,32 @@ export class AddModal extends Component{
 
                     <bootstrap.Modal.Body>
                         <div>
-                            <Field
-                                name="genericField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Generic name"
+                                placeholder="Enter generic name"
                                 value={this.state.searchTermGeneric}
-                                onChange = {this.onSearchChangeGeneric}
-                            >
-                                Generic Name
-                            </Field>
+                                onChange={this.onSearchChangeGeneric}
+                            />
 
-                            <Field
-                                name="brandField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Brand name"
+                                placeholder="Enter brand name"
                                 value={this.state.searchTermBrand}
-                                onChange = {this.onSearchChangeBrand}
-                            >
-                                Brand Name
-                            </Field>
+                                onChange={this.onSearchChangeBrand}
+                            />
 
-                            <Field
-                                name="dosageField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Dosage"
+                                placeholder="Enter dosage"
                                 value={this.state.searchTermDosage}
-                                onChange = {this.onSearchChangeDosage}
-                            >
-                                Dosage
-                            </Field>
+                                onChange={this.onSearchChangeDosage}
+                            />
                         </div>
 
                     </bootstrap.Modal.Body>

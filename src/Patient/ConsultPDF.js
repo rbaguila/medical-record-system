@@ -5,6 +5,7 @@ import * as bootstrap from 'react-bootstrap';
 import './ConsultPDF.css';
 import * as newjs from './sample.js';
 import {Field} from '../importables';
+import aw2 from '../images/aw2.png';
 
 var jsPDF = require('jspdf');
 
@@ -38,8 +39,13 @@ export class ConsultPDF extends Component{
         var pdf = new jsPDF('p', 'mm', 'a4');
         pdf.setFont("times");
         pdf.setFontSize("10");
+        pdf.text(90,10, "Medical Records System");
+        pdf.text(65,15, "102 Dolores Homesite, City of San Fernando, Pampanga");
+        pdf.text(83,20, "Contact number: (045) 961-83-05");
         pdf.text(30,30, this.state.value);
-        pdf.save("consultation.pdf");
+        pdf.output('dataurlnewwindow');  
+        //pdf.save("consultation.pdf");
+
     }
 
     textChange(){

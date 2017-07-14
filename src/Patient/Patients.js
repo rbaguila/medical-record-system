@@ -89,7 +89,7 @@ export class Patients extends Component{
 	}
 
     componentWillUpdate(nextProps, nextState){
-        this.fetchSearchTopstories();
+        //this.fetchSearchTopstories();
     }
 
 

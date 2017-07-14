@@ -70,7 +70,7 @@ export class BasePage extends Component{
   }
 
   componentWillUpdate(nextProps, nextState){
-      this.fetchSearchTopstories();
+      //this.fetchSearchTopstories();
   }
   
 	isSearched(searchTerm) {return function(item) {

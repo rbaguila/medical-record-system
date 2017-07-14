@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 
 
 import * as bootstrap from 'react-bootstrap';
-import {Field} from './importables';
+import {FieldGroup} from './importables';
 
 import Home from './Home';
 import Medicines from './Medicine/Medicines';
@@ -17,6 +17,8 @@ import LoginRegister from './LoginRegister';
 import UserProfile from './UserProfile';
 
 const usersAPI = `http://localhost:3001/api/users`;
+
+
 
 export class LoginModal extends Component{
 
@@ -36,26 +38,6 @@ export class LoginModal extends Component{
         this.submit = this.submit.bind(this);
         this.setResponseData = this.setResponseData.bind(this);
     }
-
-
-
-    // createPaths(){
-
-    //     var browserHistory = createHistory();
-
-    //     //Add paths here
-    //     ReactDOM.render(
-    //         <Router history={browserHistory}>
-    //             <Home>
-    //                 <Redirect from="/login" to="patients" />
-    //                 <Route path="/patients" component={Patients} />
-    //                 <Route path="/medicines" component={Medicines} />
-    //                 <Route path="/procedures" component={Procedures} />
-    //                 <Route path="/login" component={LoginRegister} />
-    //             </Home>
-    //         </Router>
-    //         , document.getElementById('root'));
-    // }
 
     setResponseData(result){
 
@@ -135,27 +117,29 @@ export class LoginModal extends Component{
                         <bootstrap.Modal.Body>
                             <div>
                                 <div>
-                                    Enter name:
-                                    <Field
-                                        id="username"
+                                   
+                                  
+                                    <FieldGroup
+                                        id="formControlsText"
+                                        type="text"
+                                        label="Username"
+                                        placeholder="Enter username"
                                         value={this.state.userField}
                                         onChange={this.userChange}
-                                        type="text"
-                                    >
-                                        e.g. ertzworm
-                                    </Field>
+                                    />
+                                                                        
                                 </div>
 
                                 <div>
-                                    Enter password:
-                                    <Field
-                                        id="password"
+                                    <FieldGroup
+                                        id="formControlsText"
+                                        type="password"
+                                        label="Password"
+                                        placeholder="Enter password"
                                         value={this.state.passField}
                                         onChange={this.passChange}
-                                        type="password"
-                                    >
-                                        e.g. 1234
-                                    </Field>
+                                    />
+                                   
                                 </div>
 
                             </div>
