@@ -1,5 +1,9 @@
 textarea{
     resize: none;
+    background: transparent;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .addPres{

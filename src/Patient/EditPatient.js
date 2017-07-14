@@ -77,7 +77,7 @@ export class EditPatient extends Component{
         
         return(
             //Button  
-            <div>
+            <span>
                 <bootstrap.Button
                     bsStyle="primary"
                     bsSize="small"
@@ -129,7 +129,7 @@ export class EditPatient extends Component{
                     </bootstrap.Modal.Footer>
 
                 </bootstrap.Modal>
-            </div>
+            </span>
             
         );
     }

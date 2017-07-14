@@ -28,7 +28,7 @@ export class LoginRegister extends Component{
     
     render(){
 
-        if(UserProfile.isAuth() != true){
+        if(UserProfile.isAuth() !== true){
             console.log(UserProfile.isAuth());
         }else{
             console.log(UserProfile.isAuth());

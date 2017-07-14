@@ -46,7 +46,7 @@ export class Patients extends Component{
         super(props);
 
         this.state = {
-            result: null,
+            result: [],
             searchTerm: '',
             showModal: false,
         }
@@ -54,21 +54,17 @@ export class Patients extends Component{
 		this.isSearched = this.isSearched.bind(this);
 		this.onSearchChange = this.onSearchChange.bind(this);
         this.fetchSearchTopstories = this.fetchSearchTopstories.bind(this);
-        this.setSearchTopstories = this.setSearchTopstories.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
-
-
-    setSearchTopstories(result) {
-        this.setState({ result });
-    }
 
   fetchSearchTopstories() {
     //convert fetching of data to axios command
-    fetch(patientAPI)
-    .then(response => response.json())
-    .then(result => this.setSearchTopstories(result));
+    axios.get(patientAPI)
+        .then(res => {
+            this.setState({result: res.data});
+        })
   }
 
   componentDidMount() {
@@ -88,12 +84,25 @@ export class Patients extends Component{
 		this.setState({ searchTerm: event.target.value });
 	}
 
-    componentWillUpdate(nextProps, nextState){
-        //this.fetchSearchTopstories();
+    handleSubmit(result){
+        const self = this;
+        let oldData = this.state.result;
+        let newData = oldData.concat([result]);
+
+
+        axios.post(patientAPI, oldData)
+            .then(function(response){
+                console.log(response);
+                self.setState({ result: newData });
+            })
+            .catch(err => {
+                console.error(err);
+                this.setState({ result: oldData });
+        });
     }
 
-
     render(){
+        console.log("Render detected!");
         const {searchTerm, result} = this.state;
         if(!result){
             return null;
@@ -105,10 +114,11 @@ export class Patients extends Component{
                     <th>{item.middleName}</th>
                     <th>{item.lastName}</th>
                     <th>
-                        <bootstrap.ButtonToolbar>
+                        <bootstrap.ButtonToolbar className>
                             <EditPatient item={item} />
                             <DismissPatient item={item} />
                             <ConsultPDF item={item} />
+                        
                         </bootstrap.ButtonToolbar>
                         
                     </th>
@@ -132,10 +142,10 @@ export class Patients extends Component{
                             <img src= {avatar} />
                             <h2> Hello, {user.username} </h2>
                             <p>
-                                <em>Ptr number: 041475654</em>
+                                <em>Ptr number: {user.ptrNumber}</em>
                             </p>
                             <p>    
-                                <em>License number: 0413218</em>
+                                <em>License number: {user.licenseNumber}</em>
                             </p>
                         </div>
                     </div>
@@ -199,7 +209,8 @@ export class Patients extends Component{
                             <bootstrap.Panel header="Patients" bsStyle="info">
 
                                 <bootstrap.ButtonToolbar>
-                                    <AddPatient 
+                                    <AddPatient
+                                        onSubmit = {this.handleSubmit}
                                     />
 									
                                 </bootstrap.ButtonToolbar>
@@ -221,7 +232,7 @@ export class Patients extends Component{
                                             <th>First Name</th>
                                             <th>Middle Name</th>
                                             <th>Last Name</th>
-                                            <th colspan="2">Actions</th>
+                                            <th colSpan="2">Actions</th>
                                         </tr>
                                     </thead>
 

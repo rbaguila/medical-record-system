@@ -15,10 +15,6 @@ export class AddPatient extends Component{
     constructor(props){
         super(props);
         this.state = {
-            fetchData: props.fetchData,
-            updateResult: props.updateResult,
-            newSearch: props.newSearch,
-            force: props.force,
             showModal: false,
             searchFirstName: '',
             searchMiddleName: '',
@@ -34,26 +30,16 @@ export class AddPatient extends Component{
 
     }
 
-    submit(){
+    submit(e){
+        e.preventDefault();
+        let firstName = this.state.searchFirstName;
+        let middleName = this.state.searchMiddleName;
+        let lastName = this.state.searchLastName;
 
-        if(this.state.searchFirstName === '' || this.state.searchMiddleName === '' || this.state.searchLastName
-        === ''){
-            console.log("Fields cannot be empty");
-            this.close();
-        }else{
-             axios.post(patientAPI, {
-                firstName: this.state.searchFirstName ,
-                middleName: this.state.searchMiddleName,
-                lastName: this.state.searchLastName
-            }).then(function(response){
-                console.log(response);
-            }).catch(function(error){
-                console.log(error);
-            });
-            this.close();
-            
-
-        }
+        this.props.onSubmit({firstName: firstName, middleName: middleName, lastName: lastName});
+        this.setState({searchFirstName: '', searchMiddleName: '', searchLastName: ''});
+        this.close();
+        
     }
 
     open(){
