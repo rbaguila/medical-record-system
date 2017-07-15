@@ -7,6 +7,7 @@ import axios from 'axios';
 //Can be accessed by e.g., bootstrap.Button
 import * as bootstrap from 'react-bootstrap';
 import {Field} from '../importables';
+import {FieldGroup} from '../importables';
 
 export class EditPatient extends Component{
 
@@ -76,7 +77,7 @@ export class EditPatient extends Component{
         
         return(
             //Button  
-            <div>
+            <span>
                 <bootstrap.Button
                     bsStyle="primary"
                     bsSize="small"
@@ -93,33 +94,32 @@ export class EditPatient extends Component{
 
                     <bootstrap.Modal.Body>
                         <div>
-                            <p>Enter new first name: </p>
-                            <Field
-                                name="firstNameField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="First name"
+                                placeholder="Enter first name"
                                 value={this.state.searchFirstName}
-                                onChange = {this.onSearchFirstName}
-                            >
-                                First Name
-                            </Field>
+                                onChange={this.onSearchFirstName}
+                            />
 
-
-                            <p>Enter new middle name: </p>
-                            <Field
-                                name="middleNameField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Middle name"
+                                placeholder="Enter middle name"
                                 value={this.state.searchMiddleName}
-                                onChange = {this.onSearchMiddleName}
-                            >
-                                Middle Name
-                            </Field>
+                                onChange={this.onSearchMiddleName}
+                            />
 
-                            <p>Enter new last name: </p>
-                            <Field
-                                name="lastNameField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Last name"
+                                placeholder="Enter last name"
                                 value={this.state.searchLastName}
-                                onChange = {this.onSearchLastName}
-                            >
-                                Last Name
-                            </Field>
+                                onChange={this.onSearchLastName}
+                            />
                         </div>
                     </bootstrap.Modal.Body>
 
@@ -129,7 +129,7 @@ export class EditPatient extends Component{
                     </bootstrap.Modal.Footer>
 
                 </bootstrap.Modal>
-            </div>
+            </span>
             
         );
     }

@@ -13,17 +13,28 @@ import Home from './Home';
 import Patients from './Patient/Patients';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
-
-import './login.css';
 import aw2 from './aw2.png';
+
+import "./login.css";
+
+UserProfile.removeUser();
 
 export class LoginRegister extends Component{
     
     constructor(props){
         super(props);
     }
+
     
     render(){
+
+        if(UserProfile.isAuth() !== true){
+            console.log(UserProfile.isAuth());
+        }else{
+            console.log(UserProfile.isAuth());
+        }
+
+
         return(
             <div className="body">
                 <div className="centerIcon">

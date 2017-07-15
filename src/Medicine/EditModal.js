@@ -7,6 +7,7 @@ import axios from 'axios';
 //Can be accessed by e.g., bootstrap.Button
 import * as bootstrap from 'react-bootstrap';
 import {Field} from '../importables';
+import {FieldGroup} from '../importables';
 
 export class EditModal extends Component{
 
@@ -93,35 +94,33 @@ export class EditModal extends Component{
 
                     <bootstrap.Modal.Body>
                         <div>
-                            <p>Enter new generic name: </p>
-                            
-                            
-                            <Field
-                                name="genericField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Generic name"
+                                placeholder="Enter generic name"
                                 value={this.state.searchTermGeneric}
-                                onChange = {this.onSearchChangeGeneric}
-                            >
-                                Generic Name
-                            </Field>
+                                onChange={this.onSearchChangeGeneric}
+                            />
 
 
-                            <p>Enter new brand name: </p>
-                            <Field
-                                name="brandField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Brand name"
+                                placeholder="Enter brand name"
                                 value={this.state.searchTermBrand}
-                                onChange = {this.onSearchChangeBrand}
-                            >
-                                Brand Name
-                            </Field>
+                                onChange={this.onSearchChangeBrand}
+                            />
 
-                            <p>Enter new dosage: </p>
-                            <Field
-                                name="dosageField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Dosage"
+                                placeholder="Enter dosage"
                                 value={this.state.searchTermDosage}
-                                onChange = {this.onSearchChangeDosage}
-                            >
-                                Dosage Name
-                            </Field>
+                                onChange={this.onSearchChangeDosage}
+                            />
                         </div>
                     </bootstrap.Modal.Body>
 

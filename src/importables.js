@@ -1,4 +1,5 @@
 import React from 'react';
+import * as bootstrap from 'react-bootstrap';
 
 export const Button = ({onClick, className = '', children}) =>
   <button
@@ -19,11 +20,11 @@ export const Search = ({ value, onChange, children }) =>
     />
   </form>
 
-export const Field = ({name, value, onChange, children}) =>
+export const Field = ({name, value, onChange, type, children}) =>
   <form>
     <input
       id={name}
-      type="text"
+      type={type}
       value={value}
       onChange = {onChange}
       placeholder = {children}
@@ -39,3 +40,13 @@ export const TextField = ({name, children}) =>
       disabled="true"
       />
   </form>
+
+export function FieldGroup({ id, label, help, ...props }) {
+  return (
+    <bootstrap.FormGroup controlId={id}>
+      <bootstrap.ControlLabel>{label}</bootstrap.ControlLabel>
+      <bootstrap.FormControl {...props} />
+      {help && <bootstrap.HelpBlock>{help}</bootstrap.HelpBlock>}
+    </bootstrap.FormGroup>
+  );
+}

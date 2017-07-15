@@ -1,19 +1,51 @@
 .leftNav{
     height: 100vh;
+    width: 30vh;
     padding: 0;
     margin: 0;
 }
 
-
-.welcomeIcon{
+.overhead{
     
-    height: 10%;
+    height: 10vh;
     background: #063376; /* fallback for old browsers */
 }
 
-.myLinks{
-    height: 90%;
+.welcomeIcon{
+    height: 25vh;
     background: #86a9de;
+}
+
+.sampleBox{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    height: 30vh;
+    word-wrap: break-word;
+    white-space: nowrap;
+}
+
+.sampleBox > img {
+    height: auto;
+    width: 25%;
+}
+
+.sampleBox > h2 {
+   font-size: 2vw;
+}
+
+.samplebox > p {
+    font-size: 1vw;
+}
+
+.myLinks{
+    height: 55vh;
+    background: #86a9de;
+}
+
+.underhead{
+    height: 10vh;
+    background: #063376;
 }
 
 
@@ -21,6 +53,20 @@
     height: 100vh;
     padding: 0;
     margin: 0;
+}
+
+.rightNavIcons{
+   height: 10vh;
+   display: flex;
+   justify-content: center; /* align horizontal */
+   align-items: center; /* align vertical */
+}
+
+.leftNavIcons{
+   height: 10vh;
+   display: flex;
+   justify-content: center; /* align horizontal */
+   align-items: center; /* align vertical */
 }
 
 .navIcon{
@@ -33,15 +79,6 @@
     width: 90px;
 }
 
-.rightNavIcons{
-    position: absolute;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    border: 2px solid black;
-    
-}
-
 .glpyhs{
     color: #86a9de;
 }
@@ -49,11 +86,6 @@
 .basicInfo{
     height: 30%;
     background: white;
-}
-
-.tables{
-    height: 60%;
-    background: #e3e0e1;
 }
 
 .divider{
@@ -65,13 +97,23 @@
 }
 
 .tables{
-    padding-top: 20px;
+    padding-top: 50px;
 }
 .panels{
     width: 90%;
 }
 
 #container{
-    display: flex;
-    align-items: center;
+   text-align: center;
+}
+
+.sampleBox > img{
+    padding-top: 15px;
+}
+
+.searchDiv{
+    text-align: center;
+}
+
+.actionButtons{
 }

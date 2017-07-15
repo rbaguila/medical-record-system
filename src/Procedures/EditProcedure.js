@@ -6,6 +6,7 @@ import axios from 'axios';
 //Can be accessed by e.g., bootstrap.Button
 import * as bootstrap from 'react-bootstrap';
 import {Field} from '../importables';
+import {FieldGroup} from '../importables';
 
 const procedureAPI = `http://localhost:3001/api/procedure/`;
 
@@ -90,29 +91,32 @@ export class EditProcedure extends Component{
 
                     <bootstrap.Modal.Body>
                         <div>
-                            <Field
-                                name="firstNameField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Procedure name"
+                                placeholder="Enter procedure name"
                                 value={this.state.searchName}
-                                onChange = {this.onSearchName}
-                            >
-                                Name
-                            </Field>
+                                onChange={this.onSearchName}
+                            />
 
-                            <Field
-                                name="middleNameField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Description"
+                                placeholder="Enter description"
                                 value={this.state.searchDescription}
-                                onChange = {this.onSearchDescription}
-                            >
-                                Description
-                            </Field>
+                                onChange={this.onSearchDescription}
+                            />
 
-                            <Field
-                                name="lastNameField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Fee"
+                                placeholder="Enter fee"
                                 value={this.state.searchFee}
-                                onChange = {this.onSearchFee}
-                            >
-                                Fee
-                            </Field>
+                                onChange={this.onSearchFee}
+                            />
                         </div>
 
                     </bootstrap.Modal.Body>

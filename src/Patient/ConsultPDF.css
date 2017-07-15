@@ -1,9 +1,19 @@
 textarea{
     resize: none;
+    background: transparent;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .addPres{
     padding-top: 10px;
     display: flex;
     position: relative;
+}
+
+.myText{
+    box-sizing:border-box;
+    height: 50vh;
+    width: 100%;
 }

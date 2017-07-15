@@ -4,7 +4,6 @@ import createHistory from 'history/createBrowserHistory';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import * as bootstrap from 'react-bootstrap';
-import './Home.css';
 
 import UserProfile from './UserProfile';
 
@@ -20,39 +19,7 @@ export class Home extends Component{
         var name = UserProfile.getUser().username;
 
         return(
-            <div className="body">
-                
-                <Link to="/patients">
-                    <bootstrap.Button
-                        bsStyle="danger"
-                        bsSize="small">
-                        Patients
-                    </bootstrap.Button>
-                </Link>
-                <Link to="/medicines">
-                    <bootstrap.Button
-                        bsStyle="success"
-                        bsSize="small"
-                    >
-                        Medicines
-                    </bootstrap.Button>
-                </Link>
-                <Link to="/procedures">
-                    <bootstrap.Button
-                        bsStyle="info"
-                        bsSize="small"
-                    >
-
-                        Procedures
-                    </bootstrap.Button>
-                </Link>
-
-                <div className="loginregister">
-                    <LoginModal/>
-                    <RegisterModal />
-                </div>
-                
-                <h3> Welcome {name} </h3>
+            <div>
                 {this.props.children}
             
             </div>    

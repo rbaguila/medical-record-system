@@ -6,6 +6,7 @@ import axios from 'axios';
 //Can be accessed by e.g., bootstrap.Button
 import * as bootstrap from 'react-bootstrap';
 import {Field} from '../importables';
+import {FieldGroup} from '../importables';
 
 const patientAPI = `http://localhost:3001/api/patients/`;
 
@@ -26,27 +27,19 @@ export class AddPatient extends Component{
         this.onSearchFirstName = this.onSearchFirstName.bind(this);
         this.onSearchMiddleName= this.onSearchMiddleName.bind(this);
         this.onSearchLastName = this.onSearchLastName.bind(this);
+
     }
 
-    submit(){
+    submit(e){
+        e.preventDefault();
+        let firstName = this.state.searchFirstName;
+        let middleName = this.state.searchMiddleName;
+        let lastName = this.state.searchLastName;
 
-        if(this.state.searchFirstName === '' || this.state.searchMiddleName === '' || this.state.searchLastName
-        === ''){
-            console.log("Fields cannot be empty");
-            this.close();
-        }else{
-             axios.post(patientAPI, {
-                firstName: this.state.searchFirstName ,
-                middleName: this.state.searchMiddleName,
-                lastName: this.state.searchLastName
-            }).then(function(response){
-                console.log(response);
-            }).catch(function(error){
-                console.log(error);
-            });
-            this.close();
-        }
-
+        this.props.onSubmit({firstName: firstName, middleName: middleName, lastName: lastName});
+        this.setState({searchFirstName: '', searchMiddleName: '', searchLastName: ''});
+        this.close();
+        
     }
 
     open(){
@@ -89,29 +82,32 @@ export class AddPatient extends Component{
 
                     <bootstrap.Modal.Body>
                         <div>
-                            <Field
-                                name="firstNameField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="First name"
+                                placeholder="Enter first name"
                                 value={this.state.searchFirstName}
-                                onChange = {this.onSearchFirstName}
-                            >
-                                First Name
-                            </Field>
+                                onChange={this.onSearchFirstName}
+                            />
 
-                            <Field
-                                name="middleNameField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Middle name"
+                                placeholder="Enter middle name"
                                 value={this.state.searchMiddleName}
-                                onChange = {this.onSearchMiddleName}
-                            >
-                                Middle Name
-                            </Field>
+                                onChange={this.onSearchMiddleName}
+                            />
 
-                            <Field
-                                name="lastNameField"
+                            <FieldGroup
+                                id="formControlsText"
+                                type="text"
+                                label="Last name"
+                                placeholder="Enter last name"
                                 value={this.state.searchLastName}
-                                onChange = {this.onSearchLastName}
-                            >
-                                Last Name
-                            </Field>
+                                onChange={this.onSearchLastName}
+                            />
                         </div>
 
                     </bootstrap.Modal.Body>
